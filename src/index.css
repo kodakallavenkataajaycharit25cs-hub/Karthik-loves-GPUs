@@ -1,3 +1,76 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-black text-white antialiased selection:bg-blue-500/30 selection:text-blue-200 font-["Space_Grotesk",sans-serif];
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-["Syne",sans-serif] tracking-tight font-extrabold;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] shadow-[0_8px_32px_0_rgba(0,0,0,0.37)];
+  }
+
+  .glass-card-hover {
+    @apply transition-all duration-300 hover:bg-white/[0.06] hover:border-white/[0.15] hover:shadow-[0_8px_32px_0_rgba(59,130,246,0.1)];
+  }
+
+  .glass-navbar {
+    @apply bg-black/40 backdrop-blur-md border-b border-white/[0.08] sticky top-0 z-50;
+  }
+
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-br from-white via-white/90 to-white/60;
+  }
+
+  .premium-gradient-blue {
+    @apply bg-gradient-to-br from-blue-600/20 via-purple-600/20 to-transparent;
+  }
+
+  .glow-border {
+    position: relative;
+  }
+
+  .glow-border::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    background: linear-gradient(45deg, transparent, rgba(59,130,246,0.3), transparent);
+    border-radius: inherit;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .glow-border:hover::after {
+    opacity: 1;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-black;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-white/10 rounded-full hover:bg-white/20 transition-colors;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
