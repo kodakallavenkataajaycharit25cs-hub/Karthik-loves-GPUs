@@ -111,18 +111,18 @@ export default function TripCosting() {
   return (
     <div className="space-y-6">
       {/* Header with Controls */}
-      <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6">
+      <div className="clay-card p-6 bg-zinc-900 border-white/5 shadow-2xl">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-2xl font-bold text-white">Trip Costing Analysis</h2>
+          <h2 className="text-2xl font-black tracking-tighter uppercase clay-text-3d text-white">Trip Costing Analysis</h2>
           <div className="flex items-center space-x-4">
             <select
               value={dateRange}
               onChange={(e) => setDateRange(e.target.value)}
               className="bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white"
             >
-              <option value="7d" className="bg-gray-800">Last 7 Days</option>
-              <option value="30d" className="bg-gray-800">Last 30 Days</option>
-              <option value="90d" className="bg-gray-800">Last 3 Months</option>
+              <option value="7d" className="bg-black/20 shadow-inner">Last 7 Days</option>
+              <option value="30d" className="bg-black/20 shadow-inner">Last 30 Days</option>
+              <option value="90d" className="bg-black/20 shadow-inner">Last 3 Months</option>
             </select>
             <button className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition-colors">
               <Filter className="w-4 h-4" />
@@ -134,9 +134,9 @@ export default function TripCosting() {
         {/* Profitability Metrics */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {profitabilityMetrics.map((metric, index) => (
-            <div key={index} className="bg-white/5 rounded-lg p-4 text-center">
-              <div className="text-lg font-bold text-white mb-1">{metric.value}</div>
-              <div className="text-sm text-gray-400 mb-2">{metric.title}</div>
+            <div key={index} className="clay-card p-4 bg-black/20 border-white/5 shadow-inner text-center">
+              <div className="text-lg font-black tracking-tight uppercase text-white mb-1">{metric.value}</div>
+              <div className="text-[10px] uppercase font-black tracking-widest text-gray-500 mb-2">{metric.title}</div>
               <div className={`text-xs font-medium ${
                 metric.change.startsWith('+') ? 'text-green-400' : 'text-red-400'
               }`}>
@@ -149,8 +149,8 @@ export default function TripCosting() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Trip List */}
-        <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6">
-          <h3 className="text-xl font-bold text-white mb-6 flex items-center">
+        <div className="clay-card p-6 bg-zinc-900 border-white/5 shadow-2xl">
+          <h3 className="text-xl font-black tracking-tighter uppercase clay-text-3d text-white mb-6 flex items-center">
             <MapPin className="w-6 h-6 mr-2 text-blue-500" />
             Recent Trips
           </h3>
@@ -168,8 +168,8 @@ export default function TripCosting() {
               >
                 <div className="flex items-center justify-between mb-3">
                   <div>
-                    <h4 className="font-semibold text-white">{trip.route}</h4>
-                    <div className="flex items-center space-x-4 text-sm text-gray-400 mt-1">
+                    <h4 className="font-black text-white uppercase tracking-tight">{trip.route}</h4>
+                    <div className="flex items-center space-x-4 text-[10px] uppercase font-black tracking-widest text-gray-500 mt-1">
                       <span>{trip.vehicle}</span>
                       <span>{trip.date}</span>
                     </div>
@@ -178,7 +178,7 @@ export default function TripCosting() {
                     <div className="text-lg font-bold text-green-400">
                       {formatIndianCurrency(trip.netProfit)}
                     </div>
-                    <div className="text-sm text-gray-400">{trip.margin}% margin</div>
+                    <div className="text-[10px] uppercase font-black tracking-widest text-gray-500">{trip.margin}% margin</div>
                   </div>
                 </div>
                 
@@ -202,15 +202,15 @@ export default function TripCosting() {
         </div>
 
         {/* Cost Breakdown */}
-        <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6">
-          <h3 className="text-xl font-bold text-white mb-6 flex items-center">
+        <div className="clay-card p-6 bg-zinc-900 border-white/5 shadow-2xl">
+          <h3 className="text-xl font-black tracking-tighter uppercase clay-text-3d text-white mb-6 flex items-center">
             <BarChart3 className="w-6 h-6 mr-2 text-green-500" />
             Cost Breakdown Analysis
           </h3>
 
           <div className="space-y-4">
             {costBreakdown.map((cost, index) => (
-              <div key={index} className="bg-white/5 rounded-lg p-4">
+              <div key={index} className="clay-card p-4 bg-black/20 border-white/5 shadow-inner">
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center space-x-3">
                     <cost.icon className={`w-5 h-5 text-${cost.color}-400`} />
@@ -236,8 +236,8 @@ export default function TripCosting() {
 
       {/* Selected Trip Details */}
       {selectedTripData && (
-        <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6">
-          <h3 className="text-xl font-bold text-white mb-6 flex items-center">
+        <div className="clay-card p-6 bg-zinc-900 border-white/5 shadow-2xl">
+          <h3 className="text-xl font-black tracking-tighter uppercase clay-text-3d text-white mb-6 flex items-center">
             <Receipt className="w-6 h-6 mr-2 text-blue-500" />
             Trip Cost Analysis - {selectedTripData.id}
           </h3>
@@ -245,8 +245,8 @@ export default function TripCosting() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Trip Info */}
             <div className="space-y-6">
-              <div className="bg-white/5 rounded-lg p-4">
-                <h4 className="font-semibold text-white mb-4">Trip Information</h4>
+              <div className="clay-card p-4 bg-black/20 border-white/5 shadow-inner">
+                <h4 className="font-black text-white uppercase tracking-tight mb-4">Trip Information</h4>
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div>
                     <span className="text-gray-400">Route:</span>
@@ -276,7 +276,7 @@ export default function TripCosting() {
               </div>
 
               <div className="bg-gradient-to-r from-green-500/20 to-blue-500/20 rounded-lg p-4">
-                <h4 className="font-semibold text-white mb-4">Profitability Summary</h4>
+                <h4 className="font-black text-white uppercase tracking-tight mb-4">Profitability Summary</h4>
                 <div className="space-y-3">
                   <div className="flex justify-between">
                     <span className="text-gray-300">Customer Payment:</span>
@@ -307,7 +307,7 @@ export default function TripCosting() {
 
             {/* Detailed Cost Breakdown */}
             <div className="space-y-4">
-              <h4 className="font-semibold text-white">Detailed Cost Breakdown</h4>
+              <h4 className="font-black text-white uppercase tracking-tight">Detailed Cost Breakdown</h4>
               
               {[
                 { label: 'Fuel Cost', amount: selectedTripData.costs.fuel, icon: Fuel, color: 'red' },
@@ -318,7 +318,7 @@ export default function TripCosting() {
                 { label: 'Maintenance', amount: selectedTripData.costs.maintenance, icon: Wrench, color: 'orange' },
                 { label: 'Tax & Fees', amount: selectedTripData.costs.tax, icon: DollarSign, color: 'gray' }
               ].map((cost, index) => (
-                <div key={index} className="bg-white/5 rounded-lg p-4 flex items-center justify-between">
+                <div key={index} className="clay-card p-4 bg-black/20 border-white/5 shadow-inner flex items-center justify-between">
                   <div className="flex items-center space-x-3">
                     <cost.icon className={`w-5 h-5 text-${cost.color}-400`} />
                     <span className="text-white">{cost.label}</span>

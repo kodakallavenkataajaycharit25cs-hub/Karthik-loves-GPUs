@@ -78,7 +78,7 @@ export default function DriverPortal() {
           previousLabel: 'Previous 3 Months'
         };
       default:
-        return baseData;
+        return baseData as any;
     }
   };
 
@@ -190,19 +190,19 @@ export default function DriverPortal() {
           <h3 className="text-xl font-black text-white mb-8 tracking-tighter uppercase clay-text-3d italic">{driverData.periodLabel} Credit</h3>
           <div className="space-y-6">
             <div>
-              <div className="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-2 italic">Current Yield</div>
-              <div className="text-4xl font-black text-green-400 tracking-tighter">
+              <div className="text-[12px] font-black uppercase tracking-widest text-gray-500 mb-2 italic">Current Yield</div>
+              <div className="text-5xl md:text-6xl font-black text-green-400 tracking-tighter">
                 {formatIndianCurrency(driverData.currentPeriodEarnings)}
               </div>
             </div>
             <div className="flex justify-between items-end pt-6 border-t border-white/5">
               <div>
                 <div className="text-[10px] font-black uppercase tracking-widest text-gray-600 mb-1 leading-none italic">Prev Cycle</div>
-                <div className="text-lg font-black text-gray-400 tracking-tight">
+                <div className="text-xl md:text-2xl font-black text-gray-400 tracking-tight">
                   {formatIndianCurrency(driverData.previousPeriodEarnings)}
                 </div>
               </div>
-              <div className="px-4 py-2 clay-card bg-green-500 border-none text-[10px] font-black text-white uppercase tracking-widest shadow-green-900/40">
+              <div className="px-5 py-3 clay-card bg-green-500 border-none text-xs md:text-sm font-black text-white uppercase tracking-widest shadow-green-900/40">
                 +{(((driverData.currentPeriodEarnings - driverData.previousPeriodEarnings) / driverData.previousPeriodEarnings) * 100).toFixed(1)}% Yield
               </div>
             </div>
@@ -218,7 +218,7 @@ export default function DriverPortal() {
         <h2 className="text-2xl font-black text-white mb-10 tracking-tighter uppercase clay-text-3d">Document Archives</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {driverData.documents.map((doc, index) => (
+          {driverData.documents?.map((doc: any, index: number) => (
             <div key={index} className="clay-card p-6 bg-black/20 border-white/5 shadow-inner">
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-sm font-black text-white uppercase tracking-tight">{doc.name}</h3>
@@ -268,7 +268,7 @@ export default function DriverPortal() {
                   </div>
                 </div>
                 <div className="text-right">
-                  <div className="text-xl font-black text-green-400 tracking-tighter">
+                  <div className="text-2xl md:text-3xl font-black text-green-400 tracking-tighter">
                     {formatIndianCurrency(trip.fare)}
                   </div>
                   <div className="text-[10px] text-gray-700 font-bold uppercase tracking-widest mt-1">Mission Credit</div>
@@ -314,16 +314,16 @@ export default function DriverPortal() {
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
           <div className="clay-card p-6 bg-green-500/10 border-green-500/20 text-center">
-            <div className="text-3xl font-black text-green-400 tracking-tighter">{formatIndianCurrency(driverData.currentPeriodEarnings)}</div>
-            <div className="text-[10px] text-green-500 font-black uppercase tracking-widest mt-2 italic">{driverData.periodLabel}</div>
+            <div className="text-4xl md:text-5xl font-black text-green-400 tracking-tighter mb-1">{formatIndianCurrency(driverData.currentPeriodEarnings)}</div>
+            <div className="text-xs text-green-500 font-black uppercase tracking-widest mt-2 italic">{driverData.periodLabel}</div>
           </div>
           <div className="clay-card p-6 bg-blue-500/10 border-blue-500/20 text-center">
-            <div className="text-3xl font-black text-blue-400 tracking-tighter">{formatIndianCurrency(driverData.previousPeriodEarnings)}</div>
-            <div className="text-[10px] text-blue-500 font-black uppercase tracking-widest mt-2 italic">{driverData.previousLabel}</div>
+            <div className="text-4xl md:text-5xl font-black text-blue-400 tracking-tighter mb-1">{formatIndianCurrency(driverData.previousPeriodEarnings)}</div>
+            <div className="text-xs text-blue-500 font-black uppercase tracking-widest mt-2 italic">{driverData.previousLabel}</div>
           </div>
           <div className="clay-card p-6 bg-purple-500/10 border-purple-500/20 text-center">
-            <div className="text-3xl font-black text-purple-400 tracking-tighter">{formatIndianCurrency(driverData.currentPeriodEarnings + driverData.previousPeriodEarnings)}</div>
-            <div className="text-[10px] text-purple-500 font-black uppercase tracking-widest mt-2 italic">Total Ops Credit</div>
+            <div className="text-4xl md:text-5xl font-black text-purple-400 tracking-tighter mb-1">{formatIndianCurrency(driverData.currentPeriodEarnings + driverData.previousPeriodEarnings)}</div>
+            <div className="text-xs text-purple-500 font-black uppercase tracking-widest mt-2 italic">Total Ops Credit</div>
           </div>
         </div>
 
@@ -345,7 +345,7 @@ export default function DriverPortal() {
                     <div className="text-[10px] text-gray-600 font-bold uppercase tracking-widest mt-1">{payment.date}</div>
                    </div>
                 </div>
-                <div className="text-lg font-black text-green-400 tracking-tighter">
+                <div className="text-xl md:text-2xl font-black text-green-400 tracking-tighter">
                   {formatIndianCurrency(payment.amount)}
                 </div>
               </div>
@@ -397,12 +397,12 @@ export default function DriverPortal() {
   return (
     <div className="min-h-screen bg-zinc-950 text-white flex font-['Space_Grotesk'] overflow-hidden">
       {/* Sidebar */}
-      <div className="w-72 p-4 flex flex-col z-20">
+      <div className="w-64 p-4 flex flex-col z-20">
         <div className="clay-card h-full flex flex-col bg-zinc-900/50 border-white/5 shadow-2xl overflow-hidden">
           <div className="p-6 mb-4">
             <div className="flex items-center space-x-4">
-              <div className="w-12 h-12 clay-card bg-blue-600 border-none flex items-center justify-center shadow-blue-900/40">
-                <Car className="w-6 h-6 text-white" />
+              <div className="w-12 h-12 bg-white text-black rounded-[1.2rem] flex items-center justify-center font-black text-xl shadow-xl">
+                S
               </div>
               <div className="flex flex-col">
                 <h1 className="text-lg font-black tracking-tighter leading-none clay-text-3d uppercase">SUKRUTHA</h1>

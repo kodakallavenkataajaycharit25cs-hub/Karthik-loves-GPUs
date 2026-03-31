@@ -146,7 +146,7 @@ export default function ExpenseClassifier({ userRole }: ExpenseClassifierProps) 
     <div className="space-y-6">
       {/* Header */}
       <div className="bg-gradient-to-r from-purple-500/20 to-blue-500/20 backdrop-blur-sm border border-purple-500/50 rounded-2xl p-6">
-        <h2 className="text-2xl font-bold text-white mb-4 flex items-center">
+        <h2 className="text-2xl font-black tracking-tighter uppercase clay-text-3d text-white mb-4 flex items-center">
           <Camera className="w-8 h-8 mr-3 text-purple-400" />
           AI Expense Classifier (OCR)
         </h2>
@@ -157,8 +157,8 @@ export default function ExpenseClassifier({ userRole }: ExpenseClassifierProps) 
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Upload Section */}
-        <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6">
-          <h3 className="text-xl font-bold text-white mb-6">Upload Receipts</h3>
+        <div className="clay-card p-6 bg-zinc-900 border-white/5 shadow-2xl">
+          <h3 className="text-xl font-black tracking-tighter uppercase clay-text-3d text-white mb-6">Upload Receipts</h3>
           
           <div className="border-2 border-dashed border-white/20 rounded-lg p-8 text-center hover:border-purple-500/50 transition-colors">
             <input
@@ -187,23 +187,23 @@ export default function ExpenseClassifier({ userRole }: ExpenseClassifierProps) 
 
           {/* Quick Stats */}
           <div className="mt-6 grid grid-cols-2 gap-4">
-            <div className="bg-white/5 rounded-lg p-4 text-center">
+            <div className="clay-card p-4 bg-black/20 border-white/5 shadow-inner text-center">
               <div className="text-2xl font-bold text-purple-400">{classifiedExpenses.length}</div>
-              <div className="text-sm text-gray-400">Total Receipts</div>
+              <div className="text-[10px] uppercase font-black tracking-widest text-gray-500">Total Receipts</div>
             </div>
-            <div className="bg-white/5 rounded-lg p-4 text-center">
+            <div className="clay-card p-4 bg-black/20 border-white/5 shadow-inner text-center">
               <div className="text-2xl font-bold text-green-400">
                 {formatIndianCurrency(Object.values(expenseSummary).reduce((a, b) => a + b, 0))}
               </div>
-              <div className="text-sm text-gray-400">Total Amount</div>
+              <div className="text-[10px] uppercase font-black tracking-widest text-gray-500">Total Amount</div>
             </div>
           </div>
         </div>
 
         {/* Category Summary */}
-        <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6">
+        <div className="clay-card p-6 bg-zinc-900 border-white/5 shadow-2xl">
           <div className="flex items-center justify-between mb-6">
-            <h3 className="text-xl font-bold text-white">Expense Categories</h3>
+            <h3 className="text-xl font-black tracking-tighter uppercase clay-text-3d text-white">Expense Categories</h3>
             <div className="flex space-x-2">
               <button
                 onClick={() => exportExpenses('csv')}
@@ -248,8 +248,8 @@ export default function ExpenseClassifier({ userRole }: ExpenseClassifierProps) 
       </div>
 
       {/* Classified Expenses List */}
-      <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6">
-        <h3 className="text-xl font-bold text-white mb-6">Recent Classifications</h3>
+      <div className="clay-card p-6 bg-zinc-900 border-white/5 shadow-2xl">
+        <h3 className="text-xl font-black tracking-tighter uppercase clay-text-3d text-white mb-6">Recent Classifications</h3>
         
         <div className="space-y-4">
           {classifiedExpenses.slice(0, 10).map((expense) => {
@@ -257,19 +257,19 @@ export default function ExpenseClassifier({ userRole }: ExpenseClassifierProps) 
             const color = getCategoryColor(expense.category);
             
             return (
-              <div key={expense.id} className="bg-white/5 rounded-lg p-4">
+              <div key={expense.id} className="clay-card p-4 bg-black/20 border-white/5 shadow-inner">
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center space-x-4">
                     <div className={`w-12 h-12 bg-${color}-500/20 rounded-lg flex items-center justify-center`}>
                       <Icon className={`w-6 h-6 text-${color}-400`} />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-white">{expense.fileName}</h4>
+                      <h4 className="font-black text-white uppercase tracking-tight">{expense.fileName}</h4>
                       <p className="text-gray-400 text-sm">{expense.vendor}</p>
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="text-lg font-bold text-white">{formatIndianCurrency(expense.amount)}</div>
+                    <div className="text-lg font-black tracking-tight uppercase text-white">{formatIndianCurrency(expense.amount)}</div>
                     <div className="flex items-center space-x-2">
                       <Tag className={`w-4 h-4 text-${color}-400`} />
                       <span className={`text-${color}-400 text-sm font-medium capitalize`}>

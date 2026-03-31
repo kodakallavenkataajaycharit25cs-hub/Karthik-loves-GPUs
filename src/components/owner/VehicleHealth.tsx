@@ -116,8 +116,8 @@ export default function VehicleHealth() {
   return (
     <div className="space-y-6">
       {/* Vehicle Selector */}
-      <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6">
-        <h2 className="text-2xl font-bold text-white mb-4">Vehicle Health Monitoring</h2>
+      <div className="clay-card p-6 bg-zinc-900 border-white/5 shadow-2xl">
+        <h2 className="text-2xl font-black tracking-tighter uppercase clay-text-3d text-white mb-4">Vehicle Health Monitoring</h2>
         <div className="flex flex-wrap gap-3">
           {vehicles.map((vehicle) => {
             const StatusIcon = getStatusIcon(vehicle.status);
@@ -135,8 +135,8 @@ export default function VehicleHealth() {
               >
                 <StatusIcon className={`w-5 h-5 text-${statusColor}-400`} />
                 <div className="text-left">
-                  <div className="font-semibold text-white">{vehicle.id}</div>
-                  <div className="text-xs text-gray-400">{vehicle.model}</div>
+                  <div className="font-black text-white uppercase tracking-tight">{vehicle.id}</div>
+                  <div className="text-[10px] uppercase font-black tracking-widest text-gray-500">{vehicle.model}</div>
                 </div>
               </button>
             );
@@ -148,8 +148,8 @@ export default function VehicleHealth() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-6">
           {/* OBD Metrics */}
-          <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6">
-            <h3 className="text-xl font-bold text-white mb-6 flex items-center">
+          <div className="clay-card p-6 bg-zinc-900 border-white/5 shadow-2xl">
+            <h3 className="text-xl font-black tracking-tighter uppercase clay-text-3d text-white mb-6 flex items-center">
               <Car className="w-6 h-6 mr-2 text-blue-500" />
               Real-time OBD Data - {selectedVehicleData.id}
             </h3>
@@ -176,8 +176,8 @@ export default function VehicleHealth() {
             </div>
 
             {/* Tyre Pressure */}
-            <div className="bg-white/5 rounded-lg p-4">
-              <h4 className="font-semibold text-white mb-4 flex items-center">
+            <div className="clay-card p-4 bg-black/20 border-white/5 shadow-inner">
+              <h4 className="font-black text-white uppercase tracking-tight mb-4 flex items-center">
                 <Settings className="w-5 h-5 mr-2" />
                 Tyre Pressure (PSI)
               </h4>
@@ -200,7 +200,7 @@ export default function VehicleHealth() {
                       <div className={`text-lg font-bold ${isLow ? 'text-red-400' : 'text-green-400'}`}>
                         {tyre.value} PSI
                       </div>
-                      <div className="text-xs text-gray-400">{tyre.label}</div>
+                      <div className="text-[10px] uppercase font-black tracking-widest text-gray-500">{tyre.label}</div>
                     </div>
                   );
                 })}
@@ -230,8 +230,8 @@ export default function VehicleHealth() {
           )}
 
           {/* Speed & Geofence Violations */}
-          <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6">
-            <h3 className="text-xl font-bold text-white mb-6">Recent Violations</h3>
+          <div className="clay-card p-6 bg-zinc-900 border-white/5 shadow-2xl">
+            <h3 className="text-xl font-black tracking-tighter uppercase clay-text-3d text-white mb-6">Recent Violations</h3>
             
             <div className="space-y-4">
               {[
@@ -239,7 +239,7 @@ export default function VehicleHealth() {
                 { type: 'Geofence', location: 'Unauthorized route deviation', time: '1 day ago', severity: 'medium' },
                 { type: 'Idle', location: 'Extended idling at toll plaza', time: '2 days ago', severity: 'low' }
               ].map((violation, index) => (
-                <div key={index} className="bg-white/5 rounded-lg p-4 border-l-4 border-l-orange-500">
+                <div key={index} className="clay-card p-4 bg-black/20 border-white/5 shadow-inner border-l-4 border-l-orange-500">
                   <div className="flex items-center justify-between mb-2">
                     <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                       violation.severity === 'high' ? 'bg-red-500/20 text-red-400' :
@@ -248,7 +248,7 @@ export default function VehicleHealth() {
                     }`}>
                       {violation.type}
                     </span>
-                    <span className="text-xs text-gray-400">{violation.time}</span>
+                    <span className="text-[10px] uppercase font-black tracking-widest text-gray-500">{violation.time}</span>
                   </div>
                   <p className="text-sm text-gray-300">{violation.location}</p>
                 </div>
@@ -260,8 +260,8 @@ export default function VehicleHealth() {
         {/* Vehicle Details Sidebar */}
         <div className="space-y-6">
           {/* Vehicle Info */}
-          <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6">
-            <h3 className="text-xl font-bold text-white mb-4">Vehicle Details</h3>
+          <div className="clay-card p-6 bg-zinc-900 border-white/5 shadow-2xl">
+            <h3 className="text-xl font-black tracking-tighter uppercase clay-text-3d text-white mb-4">Vehicle Details</h3>
             
             <div className="space-y-4">
               <div>
@@ -302,8 +302,8 @@ export default function VehicleHealth() {
           </div>
 
           {/* Maintenance Info */}
-          <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6">
-            <h3 className="text-xl font-bold text-white mb-4">Maintenance Schedule</h3>
+          <div className="clay-card p-6 bg-zinc-900 border-white/5 shadow-2xl">
+            <h3 className="text-xl font-black tracking-tighter uppercase clay-text-3d text-white mb-4">Maintenance Schedule</h3>
             
             <div className="space-y-4">
               <div>
@@ -336,8 +336,8 @@ export default function VehicleHealth() {
           </div>
 
           {/* Efficiency Trends */}
-          <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6">
-            <h3 className="text-xl font-bold text-white mb-4">Efficiency Trends</h3>
+          <div className="clay-card p-6 bg-zinc-900 border-white/5 shadow-2xl">
+            <h3 className="text-xl font-black tracking-tighter uppercase clay-text-3d text-white mb-4">Efficiency Trends</h3>
             
             <div className="space-y-4">
               <div className="flex items-center justify-between">

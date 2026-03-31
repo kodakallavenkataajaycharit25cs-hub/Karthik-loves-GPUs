@@ -161,7 +161,7 @@ export default function BillingFinance() {
   const InvoicesView = () => (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h3 className="text-xl font-bold text-white">Invoice Management</h3>
+        <h3 className="text-xl font-black tracking-tighter uppercase clay-text-3d text-white">Invoice Management</h3>
         <div className="flex space-x-3">
           <button className="flex items-center space-x-2 bg-gray-600 hover:bg-gray-700 px-4 py-2 rounded-lg transition-colors">
             <Filter className="w-4 h-4" />
@@ -183,7 +183,7 @@ export default function BillingFinance() {
             <div key={invoice.id} className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-6">
               <div className="flex items-center justify-between mb-4">
                 <div>
-                  <h4 className="text-lg font-bold text-white">{invoice.id}</h4>
+                  <h4 className="text-lg font-black tracking-tight uppercase text-white">{invoice.id}</h4>
                   <p className="text-gray-400">{invoice.customer}</p>
                 </div>
                 <div className="flex items-center space-x-4">
@@ -193,8 +193,8 @@ export default function BillingFinance() {
                     {invoice.status}
                   </span>
                   <div className="text-right">
-                    <div className="text-2xl font-bold text-white">{formatIndianCurrency(invoice.totalAmount)}</div>
-                    <div className="text-sm text-gray-400">Inc. GST</div>
+                    <div className="text-2xl font-black tracking-tighter uppercase clay-text-3d text-white">{formatIndianCurrency(invoice.totalAmount)}</div>
+                    <div className="text-[10px] uppercase font-black tracking-widest text-gray-500">Inc. GST</div>
                   </div>
                 </div>
               </div>
@@ -220,7 +220,7 @@ export default function BillingFinance() {
                 </div>
               </div>
 
-              <div className="bg-white/5 rounded-lg p-4 mb-4">
+              <div className="clay-card p-4 bg-black/20 border-white/5 shadow-inner mb-4">
                 <div className="grid grid-cols-3 gap-4 text-sm">
                   <div className="flex justify-between">
                     <span className="text-gray-400">Base Amount:</span>
@@ -262,7 +262,7 @@ export default function BillingFinance() {
   const PricingView = () => (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h3 className="text-xl font-bold text-white">Pricing Models</h3>
+        <h3 className="text-xl font-black tracking-tighter uppercase clay-text-3d text-white">Pricing Models</h3>
         <button className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition-colors">
           <Plus className="w-4 h-4" />
           <span>Add Pricing Model</span>
@@ -274,7 +274,7 @@ export default function BillingFinance() {
           <div key={model.id} className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-6">
             <div className="flex items-center justify-between mb-4">
               <div>
-                <h4 className="text-lg font-bold text-white">{model.name}</h4>
+                <h4 className="text-lg font-black tracking-tight uppercase text-white">{model.name}</h4>
                 <span className="px-2 py-1 bg-blue-500/30 text-blue-300 rounded-full text-sm font-medium">
                   {model.type}
                 </span>
@@ -374,7 +374,7 @@ export default function BillingFinance() {
   const PayrollView = () => (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h3 className="text-xl font-bold text-white">Driver Payroll & Commissions</h3>
+        <h3 className="text-xl font-black tracking-tighter uppercase clay-text-3d text-white">Driver Payroll & Commissions</h3>
         <div className="flex space-x-3">
           <button className="flex items-center space-x-2 bg-green-600 hover:bg-green-700 px-4 py-2 rounded-lg transition-colors">
             <Download className="w-4 h-4" />
@@ -399,7 +399,7 @@ export default function BillingFinance() {
                     <Users className="w-6 h-6 text-white" />
                   </div>
                   <div>
-                    <h4 className="text-lg font-bold text-white">{payroll.driverName}</h4>
+                    <h4 className="text-lg font-black tracking-tight uppercase text-white">{payroll.driverName}</h4>
                     <p className="text-gray-400">{payroll.vehicle}</p>
                   </div>
                 </div>
@@ -409,12 +409,12 @@ export default function BillingFinance() {
                   </span>
                   <div className="text-right">
                     <div className="text-2xl font-bold text-green-400">{formatIndianCurrency(payroll.netPay)}</div>
-                    <div className="text-sm text-gray-400">Net Pay</div>
+                    <div className="text-[10px] uppercase font-black tracking-widest text-gray-500">Net Pay</div>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-white/5 rounded-lg p-4">
+              <div className="clay-card p-4 bg-black/20 border-white/5 shadow-inner">
                 <div className="grid grid-cols-2 md:grid-cols-5 gap-4 text-sm">
                   <div className="text-center">
                     <span className="text-gray-400">Basic Salary</span>
@@ -465,7 +465,7 @@ export default function BillingFinance() {
 
   const ReportsView = () => (
     <div className="space-y-6">
-      <h3 className="text-xl font-bold text-white">Financial Reports</h3>
+      <h3 className="text-xl font-black tracking-tighter uppercase clay-text-3d text-white">Financial Reports</h3>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {[
@@ -480,7 +480,7 @@ export default function BillingFinance() {
             <div className={`w-12 h-12 bg-${report.color}-500/30 rounded-lg flex items-center justify-center mb-4`}>
               <report.icon className={`w-6 h-6 text-${report.color}-400`} />
             </div>
-            <h4 className="font-semibold text-white mb-2">{report.name}</h4>
+            <h4 className="font-black text-white uppercase tracking-tight mb-2">{report.name}</h4>
             <p className="text-gray-300 text-sm mb-4">{report.description}</p>
             <button className={`w-full bg-${report.color}-600 hover:bg-${report.color}-700 text-white py-2 rounded-lg transition-colors`}>
               Generate Report
@@ -491,7 +491,7 @@ export default function BillingFinance() {
 
       {/* Integration Section */}
       <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-6">
-        <h4 className="text-lg font-bold text-white mb-4">Accounting Software Integration</h4>
+        <h4 className="text-lg font-black tracking-tight uppercase text-white mb-4">Accounting Software Integration</h4>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {[
@@ -503,9 +503,9 @@ export default function BillingFinance() {
                               integration.status === 'pending' ? 'yellow' : 'red';
             
             return (
-              <div key={index} className="bg-white/5 rounded-lg p-4">
+              <div key={index} className="clay-card p-4 bg-black/20 border-white/5 shadow-inner">
                 <div className="flex items-center justify-between mb-3">
-                  <h5 className="font-semibold text-white">{integration.name}</h5>
+                  <h5 className="font-black text-white uppercase tracking-tight">{integration.name}</h5>
                   <span className={`px-2 py-1 rounded-full text-xs font-medium bg-${statusColor}-500/30 text-${statusColor}-300`}>
                     {integration.status}
                   </span>
@@ -530,7 +530,7 @@ export default function BillingFinance() {
     <div className="space-y-6">
       {/* Header with Financial Overview */}
       <div className="bg-gradient-to-r from-green-500/20 to-blue-500/20 backdrop-blur-sm border border-green-500/50 rounded-2xl p-6">
-        <h2 className="text-2xl font-bold text-white mb-6 flex items-center">
+        <h2 className="text-2xl font-black tracking-tighter uppercase clay-text-3d text-white mb-6 flex items-center">
           <CreditCard className="w-8 h-8 mr-3 text-green-400" />
           Billing & Finance Management
         </h2>
@@ -538,7 +538,7 @@ export default function BillingFinance() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           {financialMetrics.map((metric, index) => (
             <div key={index} className="bg-white/10 rounded-lg p-4 text-center">
-              <div className="text-lg font-bold text-white mb-1">{metric.value}</div>
+              <div className="text-lg font-black tracking-tight uppercase text-white mb-1">{metric.value}</div>
               <div className="text-sm text-gray-300 mb-2">{metric.title}</div>
               <div className={`text-xs font-medium ${
                 metric.change.startsWith('+') ? 'text-green-400' : 'text-red-400'

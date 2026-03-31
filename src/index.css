@@ -3,19 +3,30 @@
 @tailwind utilities;
 
 @layer base {
-  body {
-    @apply bg-black text-white antialiased selection:bg-blue-500/30 selection:text-blue-200 font-["Space_Grotesk",sans-serif];
+  html {
+    font-size: 15px;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-["Syne",sans-serif] tracking-tight font-extrabold;
+  body {
+    @apply bg-black text-white antialiased selection:bg-blue-500/30 selection:text-blue-200;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply tracking-tight font-extrabold;
+    font-family: 'Syne', sans-serif;
   }
 }
 
 @layer components {
   .clay-card {
-    @apply bg-white/10 backdrop-blur-md rounded-[3rem] border border-white/20;
-    box-shadow: 
+    @apply bg-white/10 backdrop-blur-md rounded-2xl border border-white/20;
+    box-shadow:
       inset -8px -8px 16px 0px rgba(0, 0, 0, 0.2),
       inset 8px 8px 16px 0px rgba(255, 255, 255, 0.2),
       0px 20px 40px -10px rgba(0, 0, 0, 0.4);
@@ -27,15 +38,15 @@
 
   .clay-card-hover:hover {
     transform: translateY(-8px) scale(1.02);
-    box-shadow: 
+    box-shadow:
       inset -12px -12px 24px 0px rgba(0, 0, 0, 0.3),
       inset 12px 12px 24px 0px rgba(255, 255, 255, 0.3),
       0px 30px 60px -20px rgba(0, 0, 0, 0.6);
   }
 
   .clay-btn {
-    @apply px-10 py-5 rounded-3xl font-black transition-all duration-300 active:scale-95;
-    box-shadow: 
+    @apply px-5 py-2.5 rounded-xl font-black transition-all duration-300 active:scale-95;
+    box-shadow:
       inset -4px -4px 8px 0px rgba(0, 0, 0, 0.2),
       inset 4px 4px 8px 0px rgba(255, 255, 255, 0.2),
       0px 10px 20px -5px rgba(0, 0, 0, 0.3);
@@ -50,7 +61,7 @@
   }
 
   .clay-text-3d {
-    text-shadow: 2px 2px 0px rgba(0,0,0,0.2);
+    text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2);
   }
 
   .glass-navbar {
@@ -76,8 +87,13 @@
 }
 
 @keyframes marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 .animate-marquee {

@@ -139,7 +139,7 @@ export default function Maintenance() {
   const ScheduleView = () => (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h3 className="text-xl font-bold text-white">Maintenance Schedule</h3>
+        <h3 className="text-xl font-black tracking-tighter uppercase clay-text-3d text-white">Maintenance Schedule</h3>
         <button className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition-colors">
           <Plus className="w-4 h-4" />
           <span>Schedule Service</span>
@@ -158,8 +158,8 @@ export default function Maintenance() {
             >
               <div className="flex items-center justify-between mb-4">
                 <div>
-                  <h4 className="font-semibold text-white">{maintenance.vehicle}</h4>
-                  <p className="text-sm text-gray-400">{maintenance.model}</p>
+                  <h4 className="font-black text-white uppercase tracking-tight">{maintenance.vehicle}</h4>
+                  <p className="text-[10px] uppercase font-black tracking-widest text-gray-500">{maintenance.model}</p>
                 </div>
                 <span className={`px-2 py-1 rounded-full text-xs font-medium bg-${priorityColor}-500/30 text-${priorityColor}-300 uppercase`}>
                   {maintenance.priority}
@@ -201,7 +201,7 @@ export default function Maintenance() {
 
       {/* Predictive Maintenance Insights */}
       <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-6">
-        <h4 className="text-lg font-bold text-white mb-4">Predictive Maintenance Insights</h4>
+        <h4 className="text-lg font-black tracking-tight uppercase text-white mb-4">Predictive Maintenance Insights</h4>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="bg-blue-500/20 border border-blue-500/50 rounded-lg p-4 text-center">
@@ -224,7 +224,7 @@ export default function Maintenance() {
   const JobsView = () => (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h3 className="text-xl font-bold text-white">Active Maintenance Jobs</h3>
+        <h3 className="text-xl font-black tracking-tighter uppercase clay-text-3d text-white">Active Maintenance Jobs</h3>
         <div className="flex space-x-3">
           <button className="flex items-center space-x-2 bg-gray-600 hover:bg-gray-700 px-4 py-2 rounded-lg transition-colors">
             <Filter className="w-4 h-4" />
@@ -245,7 +245,7 @@ export default function Maintenance() {
             <div key={job.id} className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-6">
               <div className="flex items-center justify-between mb-6">
                 <div>
-                  <h4 className="text-lg font-bold text-white">{job.id}</h4>
+                  <h4 className="text-lg font-black tracking-tight uppercase text-white">{job.id}</h4>
                   <p className="text-gray-400">{job.vehicle} - {job.type}</p>
                 </div>
                 <span className={`px-3 py-1 rounded-full text-sm font-medium bg-${statusColor}-500/30 text-${statusColor}-300`}>
@@ -292,7 +292,7 @@ export default function Maintenance() {
               </div>
 
               <div className="space-y-3">
-                <h5 className="font-semibold text-white">Task Progress</h5>
+                <h5 className="font-black text-white uppercase tracking-tight">Task Progress</h5>
                 {job.tasks.map((task, index) => {
                   const taskStatusColor = getStatusColor(task.status);
                   const TaskIcon = task.status === 'completed' ? CheckCircle : 
@@ -318,13 +318,13 @@ export default function Maintenance() {
 
   const AnalyticsView = () => (
     <div className="space-y-6">
-      <h3 className="text-xl font-bold text-white">Maintenance Analytics</h3>
+      <h3 className="text-xl font-black tracking-tighter uppercase clay-text-3d text-white">Maintenance Analytics</h3>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         {maintenanceMetrics.map((metric, index) => (
           <div key={index} className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-4 text-center">
-            <div className="text-lg font-bold text-white mb-1">{metric.value}</div>
-            <div className="text-sm text-gray-400 mb-2">{metric.title}</div>
+            <div className="text-lg font-black tracking-tight uppercase text-white mb-1">{metric.value}</div>
+            <div className="text-[10px] uppercase font-black tracking-widest text-gray-500 mb-2">{metric.title}</div>
             <div className={`text-xs font-medium ${
               metric.change.startsWith('+') ? 'text-green-400' : 'text-red-400'
             }`}>
@@ -337,13 +337,13 @@ export default function Maintenance() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Vendor Performance */}
         <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-6">
-          <h4 className="text-lg font-bold text-white mb-4">Vendor Performance</h4>
+          <h4 className="text-lg font-black tracking-tight uppercase text-white mb-4">Vendor Performance</h4>
           
           <div className="space-y-4">
             {vendors.map((vendor, index) => (
-              <div key={index} className="bg-white/5 rounded-lg p-4">
+              <div key={index} className="clay-card p-4 bg-black/20 border-white/5 shadow-inner">
                 <div className="flex items-center justify-between mb-2">
-                  <h5 className="font-semibold text-white">{vendor.name}</h5>
+                  <h5 className="font-black text-white uppercase tracking-tight">{vendor.name}</h5>
                   <div className="flex items-center space-x-1">
                     <div className="flex">
                       {[...Array(5)].map((_, i) => (
@@ -375,7 +375,7 @@ export default function Maintenance() {
 
         {/* Cost Analysis */}
         <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-6">
-          <h4 className="text-lg font-bold text-white mb-4">Cost Breakdown</h4>
+          <h4 className="text-lg font-black tracking-tight uppercase text-white mb-4">Cost Breakdown</h4>
           
           <div className="space-y-4">
             {[
@@ -406,7 +406,7 @@ export default function Maintenance() {
 
       {/* ROI Analysis */}
       <div className="bg-gradient-to-r from-green-500/20 to-blue-500/20 backdrop-blur-sm border border-green-500/50 rounded-lg p-6">
-        <h4 className="text-lg font-bold text-white mb-4">Maintenance ROI Analysis</h4>
+        <h4 className="text-lg font-black tracking-tight uppercase text-white mb-4">Maintenance ROI Analysis</h4>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="text-center">
@@ -429,8 +429,8 @@ export default function Maintenance() {
   return (
     <div className="space-y-6">
       {/* Navigation Tabs */}
-      <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6">
-        <h2 className="text-2xl font-bold text-white mb-6 flex items-center">
+      <div className="clay-card p-6 bg-zinc-900 border-white/5 shadow-2xl">
+        <h2 className="text-2xl font-black tracking-tighter uppercase clay-text-3d text-white mb-6 flex items-center">
           <Wrench className="w-8 h-8 mr-3 text-orange-500" />
           Maintenance Lifecycle Management
         </h2>

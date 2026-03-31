@@ -122,7 +122,7 @@ export default function SafetyEmergency() {
     <div className="space-y-6">
       {/* Header with Emergency Stats */}
       <div className="bg-gradient-to-r from-red-500/20 to-orange-500/20 backdrop-blur-sm border border-red-500/50 rounded-2xl p-6">
-        <h2 className="text-2xl font-bold text-white mb-6 flex items-center">
+        <h2 className="text-2xl font-black tracking-tighter uppercase clay-text-3d text-white mb-6 flex items-center">
           <Shield className="w-8 h-8 mr-3 text-red-400" />
           Safety & Emergency Management
         </h2>
@@ -149,8 +149,8 @@ export default function SafetyEmergency() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Live Alerts */}
-        <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6">
-          <h3 className="text-xl font-bold text-white mb-6 flex items-center">
+        <div className="clay-card p-6 bg-zinc-900 border-white/5 shadow-2xl">
+          <h3 className="text-xl font-black tracking-tighter uppercase clay-text-3d text-white mb-6 flex items-center">
             <AlertTriangle className="w-6 h-6 mr-2 text-yellow-500" />
             Live Alerts
           </h3>
@@ -168,8 +168,8 @@ export default function SafetyEmergency() {
                     <div className="flex items-center space-x-3">
                       <Activity className={`w-5 h-5 text-${severityColor}-400`} />
                       <div>
-                        <h4 className="font-semibold text-white">{alert.type}</h4>
-                        <p className="text-sm text-gray-400">{alert.vehicle} - {alert.driver}</p>
+                        <h4 className="font-black text-white uppercase tracking-tight">{alert.type}</h4>
+                        <p className="text-[10px] uppercase font-black tracking-widest text-gray-500">{alert.vehicle} - {alert.driver}</p>
                       </div>
                     </div>
                     <span className={`px-2 py-1 rounded-full text-xs font-medium bg-${severityColor}-500/30 text-${severityColor}-300 uppercase`}>
@@ -203,8 +203,8 @@ export default function SafetyEmergency() {
         </div>
 
         {/* Emergency Contacts */}
-        <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6">
-          <h3 className="text-xl font-bold text-white mb-6 flex items-center">
+        <div className="clay-card p-6 bg-zinc-900 border-white/5 shadow-2xl">
+          <h3 className="text-xl font-black tracking-tighter uppercase clay-text-3d text-white mb-6 flex items-center">
             <Phone className="w-6 h-6 mr-2 text-green-500" />
             Emergency Contacts
           </h3>
@@ -224,13 +224,13 @@ export default function SafetyEmergency() {
               const color = getContactColor(contact.type);
               
               return (
-                <div key={index} className="bg-white/5 rounded-lg p-4 flex items-center justify-between">
+                <div key={index} className="clay-card p-4 bg-black/20 border-white/5 shadow-inner flex items-center justify-between">
                   <div className="flex items-center space-x-4">
                     <div className={`w-12 h-12 bg-${color}-500/20 rounded-full flex items-center justify-center`}>
                       <PhoneCall className={`w-6 h-6 text-${color}-400`} />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-white">{contact.name}</h4>
+                      <h4 className="font-black text-white uppercase tracking-tight">{contact.name}</h4>
                       <p className="text-gray-400">{contact.number}</p>
                     </div>
                   </div>
@@ -256,8 +256,8 @@ export default function SafetyEmergency() {
       </div>
 
       {/* Recent Incidents */}
-      <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6">
-        <h3 className="text-xl font-bold text-white mb-6 flex items-center">
+      <div className="clay-card p-6 bg-zinc-900 border-white/5 shadow-2xl">
+        <h3 className="text-xl font-black tracking-tighter uppercase clay-text-3d text-white mb-6 flex items-center">
           <Activity className="w-6 h-6 mr-2 text-blue-500" />
           Recent Safety Incidents
         </h3>
@@ -281,8 +281,8 @@ export default function SafetyEmergency() {
                 >
                   <div className="flex items-center justify-between mb-3">
                     <div>
-                      <h4 className="font-semibold text-white">{incident.type}</h4>
-                      <p className="text-sm text-gray-400">{incident.id}</p>
+                      <h4 className="font-black text-white uppercase tracking-tight">{incident.type}</h4>
+                      <p className="text-[10px] uppercase font-black tracking-widest text-gray-500">{incident.id}</p>
                     </div>
                     <div className="flex space-x-2">
                       <span className={`px-2 py-1 rounded-full text-xs font-medium bg-${severityColor}-500/30 text-${severityColor}-300`}>
@@ -322,7 +322,7 @@ export default function SafetyEmergency() {
           {/* Incident Details */}
           {selectedIncidentData && (
             <div className="bg-white/5 rounded-lg p-6">
-              <h4 className="text-xl font-bold text-white mb-4">Incident Details</h4>
+              <h4 className="text-xl font-black tracking-tighter uppercase clay-text-3d text-white mb-4">Incident Details</h4>
               
               <div className="space-y-4">
                 <div>
@@ -378,15 +378,15 @@ export default function SafetyEmergency() {
       </div>
 
       {/* Crash Detection Settings */}
-      <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6">
-        <h3 className="text-xl font-bold text-white mb-6 flex items-center">
+      <div className="clay-card p-6 bg-zinc-900 border-white/5 shadow-2xl">
+        <h3 className="text-xl font-black tracking-tighter uppercase clay-text-3d text-white mb-6 flex items-center">
           <Zap className="w-6 h-6 mr-2 text-yellow-500" />
           Crash Detection & SOS Settings
         </h3>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-4">
-            <h4 className="font-semibold text-white">Detection Sensitivity</h4>
+            <h4 className="font-black text-white uppercase tracking-tight">Detection Sensitivity</h4>
             
             <div className="space-y-3">
               <div className="flex items-center justify-between">
@@ -405,7 +405,7 @@ export default function SafetyEmergency() {
           </div>
           
           <div className="space-y-4">
-            <h4 className="font-semibold text-white">Escalation Rules</h4>
+            <h4 className="font-black text-white uppercase tracking-tight">Escalation Rules</h4>
             
             <div className="space-y-2 text-sm">
               <div className="flex items-center space-x-2">

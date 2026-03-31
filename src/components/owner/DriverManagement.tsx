@@ -139,8 +139,8 @@ export default function DriverManagement() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6">
-        <h2 className="text-2xl font-bold text-white mb-4">Driver Management</h2>
+      <div className="clay-card p-6 bg-zinc-900 border-white/5 shadow-2xl">
+        <h2 className="text-2xl font-black tracking-tighter uppercase clay-text-3d text-white mb-4">Driver Management</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <div className="bg-blue-500/20 border border-blue-500/50 rounded-lg p-4 text-center">
@@ -164,8 +164,8 @@ export default function DriverManagement() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Driver List */}
-        <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6">
-          <h3 className="text-xl font-bold text-white mb-6 flex items-center">
+        <div className="clay-card p-6 bg-zinc-900 border-white/5 shadow-2xl">
+          <h3 className="text-xl font-black tracking-tighter uppercase clay-text-3d text-white mb-6 flex items-center">
             <Users className="w-6 h-6 mr-2 text-blue-500" />
             Driver Roster
           </h3>
@@ -187,8 +187,8 @@ export default function DriverManagement() {
                       <Users className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-white">{driver.name}</h4>
-                      <div className="flex items-center space-x-2 text-sm text-gray-400">
+                      <h4 className="font-black text-white uppercase tracking-tight">{driver.name}</h4>
+                      <div className="flex items-center space-x-2 text-[10px] uppercase font-black tracking-widest text-gray-500">
                         <span className={`w-2 h-2 rounded-full ${
                           driver.status === 'active' ? 'bg-green-400' : 'bg-gray-400'
                         }`} />
@@ -203,7 +203,7 @@ export default function DriverManagement() {
                       <Star className="w-4 h-4 text-yellow-400 fill-current" />
                       <span className="text-white font-semibold">{driver.rating}</span>
                     </div>
-                    <div className="text-sm text-gray-400">{driver.totalTrips} trips</div>
+                    <div className="text-[10px] uppercase font-black tracking-widest text-gray-500">{driver.totalTrips} trips</div>
                   </div>
                 </div>
                 
@@ -229,21 +229,21 @@ export default function DriverManagement() {
         {/* Driver Details */}
         <div className="space-y-6">
           {/* Profile Info */}
-          <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6">
-            <h3 className="text-xl font-bold text-white mb-6">Driver Profile</h3>
+          <div className="clay-card p-6 bg-zinc-900 border-white/5 shadow-2xl">
+            <h3 className="text-xl font-black tracking-tighter uppercase clay-text-3d text-white mb-6">Driver Profile</h3>
             
             <div className="flex items-center space-x-4 mb-6">
               <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
                 <Users className="w-8 h-8 text-white" />
               </div>
               <div>
-                <h4 className="text-xl font-bold text-white">{selectedDriverData.name}</h4>
+                <h4 className="text-xl font-black tracking-tighter uppercase clay-text-3d text-white">{selectedDriverData.name}</h4>
                 <p className="text-gray-400">{selectedDriverData.experience} experience</p>
                 <div className="flex items-center space-x-2 mt-1">
                   <span className={`w-2 h-2 rounded-full ${
                     selectedDriverData.status === 'active' ? 'bg-green-400' : 'bg-gray-400'
                   }`} />
-                  <span className="text-sm text-gray-400">{selectedDriverData.status}</span>
+                  <span className="text-[10px] uppercase font-black tracking-widest text-gray-500">{selectedDriverData.status}</span>
                 </div>
               </div>
             </div>
@@ -269,8 +269,8 @@ export default function DriverManagement() {
           </div>
 
           {/* Performance Scores */}
-          <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6">
-            <h3 className="text-xl font-bold text-white mb-6 flex items-center">
+          <div className="clay-card p-6 bg-zinc-900 border-white/5 shadow-2xl">
+            <h3 className="text-xl font-black tracking-tighter uppercase clay-text-3d text-white mb-6 flex items-center">
               <TrendingUp className="w-6 h-6 mr-2 text-green-500" />
               Performance Scores
             </h3>
@@ -305,8 +305,8 @@ export default function DriverManagement() {
           </div>
 
           {/* Badges & Achievements */}
-          <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6">
-            <h3 className="text-xl font-bold text-white mb-6 flex items-center">
+          <div className="clay-card p-6 bg-zinc-900 border-white/5 shadow-2xl">
+            <h3 className="text-xl font-black tracking-tighter uppercase clay-text-3d text-white mb-6 flex items-center">
               <Award className="w-6 h-6 mr-2 text-yellow-500" />
               Badges & Achievements
             </h3>
@@ -322,16 +322,16 @@ export default function DriverManagement() {
             
             <div className="grid grid-cols-3 gap-4 mt-6 pt-6 border-t border-white/20">
               <div className="text-center">
-                <div className="text-2xl font-bold text-white">{selectedDriverData.totalTrips}</div>
-                <div className="text-sm text-gray-400">Total Trips</div>
+                <div className="text-2xl font-black tracking-tighter uppercase clay-text-3d text-white">{selectedDriverData.totalTrips}</div>
+                <div className="text-[10px] uppercase font-black tracking-widest text-gray-500">Total Trips</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-white">{selectedDriverData.totalDistance.toLocaleString('en-IN')} km</div>
-                <div className="text-sm text-gray-400">Distance</div>
+                <div className="text-2xl font-black tracking-tighter uppercase clay-text-3d text-white">{selectedDriverData.totalDistance.toLocaleString('en-IN')} km</div>
+                <div className="text-[10px] uppercase font-black tracking-widest text-gray-500">Distance</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-white">{selectedDriverData.violations}</div>
-                <div className="text-sm text-gray-400">Violations</div>
+                <div className="text-2xl font-black tracking-tighter uppercase clay-text-3d text-white">{selectedDriverData.violations}</div>
+                <div className="text-[10px] uppercase font-black tracking-widest text-gray-500">Violations</div>
               </div>
             </div>
           </div>
@@ -339,8 +339,8 @@ export default function DriverManagement() {
       </div>
 
       {/* Document Status */}
-      <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6">
-        <h3 className="text-xl font-bold text-white mb-6">Document Status</h3>
+      <div className="clay-card p-6 bg-zinc-900 border-white/5 shadow-2xl">
+        <h3 className="text-xl font-black tracking-tighter uppercase clay-text-3d text-white mb-6">Document Status</h3>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {[
@@ -352,9 +352,9 @@ export default function DriverManagement() {
             const status = getDocumentStatus(docData.status);
             
             return (
-              <div key={index} className="bg-white/5 rounded-lg p-4">
+              <div key={index} className="clay-card p-4 bg-black/20 border-white/5 shadow-inner">
                 <div className="flex items-center justify-between mb-3">
-                  <h4 className="font-semibold text-white">{doc.name}</h4>
+                  <h4 className="font-black text-white uppercase tracking-tight">{doc.name}</h4>
                   <status.icon className={`w-5 h-5 text-${status.color}-400`} />
                 </div>
                 <div className="space-y-2 text-sm">

@@ -55,13 +55,15 @@ export default function OwnerDashboard() {
   return (
     <div className="min-h-screen bg-zinc-950 text-white flex font-['Space_Grotesk'] overflow-hidden">
       {/* Sidebar */}
-      <div className={`${sidebarOpen ? 'w-72' : 'w-24'} transition-all duration-500 p-4 flex flex-col z-20`}>
+      <div className={`${sidebarOpen ? 'w-64' : 'w-20'} transition-all duration-500 p-4 flex flex-col z-20`}>
         <div className="clay-card h-full flex flex-col bg-zinc-900/50 border-white/5 shadow-2xl overflow-hidden">
-          <div className="p-6 mb-4">
+          <div className={`mb-4 flex ${sidebarOpen ? 'p-6' : 'p-4 justify-center'}`}>
             <div className="flex items-center space-x-4">
-              <div className="w-12 h-12 clay-card bg-blue-600 border-none flex items-center justify-center shadow-blue-900/40 transition-transform hover:scale-105 active:scale-95 cursor-pointer">
-                <Car className="w-6 h-6 text-white" />
-              </div>
+              {!sidebarOpen && (
+                <div className="w-10 h-10 clay-card bg-white border-none flex items-center justify-center font-black text-lg text-black shadow-xl rounded-full">
+                  S
+                </div>
+              )}
               {sidebarOpen && (
                 <div className="flex flex-col">
                   <h1 className="text-lg font-black tracking-tighter leading-none clay-text-3d uppercase">SUKRUTHA</h1>
@@ -71,12 +73,12 @@ export default function OwnerDashboard() {
             </div>
           </div>
 
-          <nav className="flex-1 px-4 space-y-2 overflow-y-auto custom-scrollbar">
+          <nav className={`flex-1 ${sidebarOpen ? 'px-4' : 'px-2'} space-y-2 overflow-y-auto custom-scrollbar`}>
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 to={item.href}
-                className={`group flex items-center px-4 py-3 rounded-2xl transition-all ${
+                className={`group flex items-center ${sidebarOpen ? 'px-4 justify-start' : 'justify-center'} py-3 rounded-2xl transition-all ${
                   item.current || (highlightedSection && item.href.includes(highlightedSection))
                     ? 'clay-card bg-blue-600 border-none shadow-blue-900/40 text-white'
                     : 'text-gray-500 hover:text-white hover:bg-white/5'
@@ -97,14 +99,16 @@ export default function OwnerDashboard() {
           <div className="p-4 mt-auto">
             {sidebarOpen && (
               <div className="clay-card bg-black/20 border-white/5 p-4 mb-4 shadow-inner">
-                <div className="flex items-center space-x-3">
+                <div className={`flex items-center ${sidebarOpen ? 'space-x-3' : 'justify-center'}`}>
                   <div className="w-10 h-10 rounded-xl bg-blue-500/20 flex items-center justify-center">
                     <Users className="w-5 h-5 text-blue-400" />
                   </div>
-                  <div>
-                    <p className="text-[10px] font-black uppercase tracking-widest text-gray-500 leading-none mb-1">Authenticated</p>
-                    <p className="font-bold text-sm truncate max-w-[120px]">{user?.name}</p>
-                  </div>
+                  {sidebarOpen && (
+                    <div className="min-w-0">
+                      <p className="text-[10px] font-black uppercase tracking-widest text-gray-500 leading-none mb-1">Authenticated</p>
+                      <p className="font-bold text-sm truncate max-w-[120px]">{user?.name}</p>
+                    </div>
+                  )}
                 </div>
               </div>
             )}

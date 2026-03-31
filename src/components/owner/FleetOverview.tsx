@@ -1,15 +1,16 @@
 import React from 'react';
-import { 
-  TrendingUp, 
-  Car, 
-  Users, 
-  AlertTriangle, 
-  DollarSign,
+import {
+  TrendingUp,
+  Truck,
+  Users,
+  AlertTriangle,
+  IndianRupee,
   MapPin,
   Fuel,
   Clock,
   Activity,
-  Zap
+  Zap,
+  Car
 } from 'lucide-react';
 
 export default function FleetOverview() {
@@ -22,33 +23,33 @@ export default function FleetOverview() {
   };
 
   const kpiData = [
-    { 
-      title: 'Gross Revenue', 
-      value: formatIndianCurrency(2847600), 
-      change: '+12.5%', 
-      icon: DollarSign, 
-      color: 'blue' 
+    {
+      title: 'Gross Revenue',
+      value: formatIndianCurrency(284760),
+      change: '+12.5%',
+      icon: IndianRupee,
+      color: 'blue'
     },
-    { 
-      title: 'Active Nodes', 
-      value: '34/38', 
-      change: '+2', 
-      icon: Car, 
-      color: 'blue' 
+    {
+      title: 'Active Nodes',
+      value: '34/38',
+      change: '+2',
+      icon: Car,
+      color: 'blue'
     },
-    { 
-      title: 'Pilot Network', 
-      value: '42', 
-      change: '+3', 
-      icon: Users, 
-      color: 'purple' 
+    {
+      title: 'Pilot Network',
+      value: '42',
+      change: '+3',
+      icon: Users,
+      color: 'purple'
     },
-    { 
-      title: 'Active Alerts', 
-      value: '7', 
-      change: '-2', 
-      icon: AlertTriangle, 
-      color: 'red' 
+    {
+      title: 'Active Alerts',
+      value: '7',
+      change: '-2',
+      icon: AlertTriangle,
+      color: 'red'
     }
   ];
 
@@ -84,13 +85,12 @@ export default function FleetOverview() {
               <div className="w-12 h-12 clay-card bg-blue-600 border-none flex items-center justify-center shadow-blue-900/40 group-hover:rotate-6 transition-transform">
                 <kpi.icon className="w-6 h-6 text-white" />
               </div>
-              <span className={`text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full ${
-                kpi.change.startsWith('+') ? 'bg-green-500/10 text-green-500 border border-green-500/20' : 'bg-red-500/10 text-red-500 border border-red-500/20'
-              }`}>
+              <span className={`text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-full ${kpi.change.startsWith('+') ? 'bg-green-500/10 text-green-500 border border-green-500/20' : 'bg-red-500/10 text-red-500 border border-red-500/20'
+                }`}>
                 {kpi.change}
               </span>
             </div>
-            <h3 className="text-2xl font-black text-white mb-1 tracking-tighter uppercase">{kpi.value}</h3>
+            <h3 className="text-xl font-black text-white mb-1 tracking-tighter uppercase">{kpi.value}</h3>
             <p className="text-gray-600 text-[10px] font-black uppercase tracking-[0.2em] italic">{kpi.title}</p>
           </div>
         ))}
@@ -100,10 +100,10 @@ export default function FleetOverview() {
         {/* Route Profitability */}
         <div className="clay-card p-8 bg-zinc-900 border-white/5 shadow-2xl">
           <div className="flex items-center space-x-4 mb-10">
-             <div className="w-10 h-10 bg-blue-600/10 rounded-xl flex items-center justify-center">
-               <MapPin className="w-5 h-5 text-blue-500" />
-             </div>
-             <h3 className="text-xl font-black tracking-tighter uppercase clay-text-3d text-white">Route Efficiency Matrix</h3>
+            <div className="w-10 h-10 bg-blue-600/10 rounded-xl flex items-center justify-center">
+              <MapPin className="w-5 h-5 text-blue-500" />
+            </div>
+            <h3 className="text-xl font-black tracking-tighter uppercase clay-text-3d text-white">Route Efficiency Matrix</h3>
           </div>
           <div className="space-y-4">
             {topRoutes.map((route, index) => (
@@ -124,10 +124,10 @@ export default function FleetOverview() {
         {/* Driver Leaderboard */}
         <div className="clay-card p-8 bg-zinc-900 border-white/5 shadow-2xl">
           <div className="flex items-center space-x-4 mb-10">
-             <div className="w-10 h-10 bg-purple-600/10 rounded-xl flex items-center justify-center">
-               <Users className="w-5 h-5 text-purple-500" />
-             </div>
-             <h3 className="text-xl font-black tracking-tighter uppercase clay-text-3d text-white">Pilot Ranking Archives</h3>
+            <div className="w-10 h-10 bg-purple-600/10 rounded-xl flex items-center justify-center">
+              <Users className="w-5 h-5 text-purple-500" />
+            </div>
+            <h3 className="text-xl font-black tracking-tighter uppercase clay-text-3d text-white">Pilot Ranking Archives</h3>
           </div>
           <div className="space-y-4">
             {topDrivers.map((driver, index) => (
@@ -159,12 +159,12 @@ export default function FleetOverview() {
         {/* Vehicle Health Summary */}
         <div className="clay-card p-8 bg-zinc-900 border-white/5">
           <div className="flex items-center space-x-4 mb-8">
-             <div className="w-10 h-10 bg-blue-600/10 rounded-xl flex items-center justify-center">
-               <Car className="w-5 h-5 text-blue-500" />
-             </div>
-             <h3 className="text-xl font-black tracking-tighter uppercase clay-text-3d text-white">Structural Health Summary</h3>
+            <div className="w-10 h-10 bg-blue-600/10 rounded-xl flex items-center justify-center">
+              <Truck className="w-5 h-5 text-blue-500" />
+            </div>
+            <h3 className="text-xl font-black tracking-tighter uppercase clay-text-3d text-white">Structural Health Summary</h3>
           </div>
-          
+
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-10">
             {[
               { l: 'Nominal', v: 28, c: 'green' },
@@ -201,21 +201,20 @@ export default function FleetOverview() {
         {/* Recent Alerts */}
         <div className="clay-card p-8 bg-zinc-900 border-white/5">
           <div className="flex items-center space-x-4 mb-8">
-             <div className="w-10 h-10 bg-red-600/10 rounded-xl flex items-center justify-center">
-               <AlertTriangle className="w-5 h-5 text-red-500" />
-             </div>
-             <h3 className="text-xl font-black tracking-tighter uppercase clay-text-3d text-white">System Alerts</h3>
+            <div className="w-10 h-10 bg-red-600/10 rounded-xl flex items-center justify-center">
+              <AlertTriangle className="w-5 h-5 text-red-500" />
+            </div>
+            <h3 className="text-xl font-black tracking-tighter uppercase clay-text-3d text-white">System Alerts</h3>
           </div>
-          
+
           <div className="space-y-4">
             {recentAlerts.map((alert, index) => (
               <div key={index} className="clay-card p-5 bg-black/20 border-white/5 border-l-4 border-l-red-600 shadow-inner group">
                 <div className="flex items-center justify-between mb-3">
-                  <div className={`px-3 py-1 rounded-full text-[8px] font-black uppercase tracking-widest ${
-                    alert.severity === 'high' ? 'bg-red-500/10 text-red-500 border border-red-500/20' :
+                  <div className={`px-3 py-1 rounded-full text-[8px] font-black uppercase tracking-widest ${alert.severity === 'high' ? 'bg-red-500/10 text-red-500 border border-red-500/20' :
                     alert.severity === 'medium' ? 'bg-yellow-500/10 text-yellow-500 border border-yellow-500/20' :
-                    'bg-blue-500/10 text-blue-500 border border-blue-500/20'
-                  }`}>
+                      'bg-blue-500/10 text-blue-500 border border-blue-500/20'
+                    }`}>
                     {alert.type} protocol
                   </div>
                   <span className="text-[8px] font-black text-gray-700 uppercase tracking-widest">{alert.time}</span>
