@@ -110,11 +110,11 @@ export default function FleetOverview() {
               <div key={index} className="clay-card p-5 bg-black/20 border-white/5 shadow-inner hover:bg-white/5 transition-all group">
                 <div className="flex items-center justify-between mb-3">
                   <h4 className="text-sm font-black text-white uppercase tracking-tight group-hover:text-blue-400 transition-colors">{route.route}</h4>
-                  <div className="px-3 py-1 bg-green-500/10 border border-green-500/20 rounded-full text-[8px] font-black text-green-500 uppercase tracking-widest">{route.margin} Yield</div>
+                  <div className="px-3 py-1 bg-green-500/10 border border-green-500/20 rounded-full text-[10px] font-black text-green-500 uppercase tracking-widest">{route.margin} Yield</div>
                 </div>
-                <div className="flex items-center justify-between text-[10px] font-black uppercase tracking-widest text-gray-600">
+                <div className="flex items-center justify-between text-xs font-black uppercase tracking-widest text-gray-600">
                   <span>{route.trips} Missions</span>
-                  <span className="text-white opacity-80">{formatIndianCurrency(route.profit)}</span>
+                  <span className="text-[14px] text-white opacity-80">{formatIndianCurrency(route.profit)}</span>
                 </div>
               </div>
             ))}
@@ -139,7 +139,7 @@ export default function FleetOverview() {
                     </div>
                     <div>
                       <h4 className="text-sm font-black text-white uppercase tracking-tight group-hover:text-purple-400 transition-colors">{driver.name}</h4>
-                      <div className="flex items-center space-x-4 text-[8px] font-black uppercase tracking-widest text-gray-600 mt-1">
+                      <div className="flex items-center space-x-4 text-[11px] font-black uppercase tracking-widest text-gray-600 mt-1">
                         <span>{driver.trips} Missions</span>
                         <span className="flex items-center text-blue-500"><Activity className="w-3 h-3 mr-1" /> Score: {driver.score}</span>
                       </div>

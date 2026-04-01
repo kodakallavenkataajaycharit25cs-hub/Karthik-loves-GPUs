@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { 
-  Mic, 
-  MicOff, 
-  Send, 
-  Bot, 
-  Volume2, 
+import {
+  Mic,
+  MicOff,
+  Send,
+  Bot,
+  Volume2,
   VolumeX,
   Sparkles,
   TrendingUp,
@@ -117,22 +117,28 @@ export default function AIVoiceAssistant({ onHighlightSection }: AIVoiceAssistan
 
   if (isMinimized) {
     return (
-      <div className="fixed bottom-8 right-8 z-[100]">
+      <div className="fixed top-1/2 right-0 -translate-y-1/2 z-[100]">
         <button
           onClick={() => setIsMinimized(false)}
-          className="w-20 h-20 clay-card bg-blue-600 border-none flex items-center justify-center shadow-blue-900/40 transition-all hover:scale-110 active:scale-95 group"
+          className="flex flex-col items-center justify-center py-6 px-3 clay-card bg-blue-600 border-none rounded-r-none rounded-l-2xl shadow-[-10px_0_30px_rgba(37,99,235,0.3)] transition-all hover:pr-5 group"
         >
-          <div className="relative">
-            <Bot className="w-10 h-10 text-white group-hover:rotate-12 transition-transform" />
-            <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-blue-600 animate-pulse" />
+          <div className="relative mb-4">
+            <Bot className="w-6 h-6 text-white group-hover:rotate-12 transition-transform" />
+            <div className="absolute -top-1 -right-1 w-2 h-2 bg-green-500 rounded-full border-2 border-blue-600 animate-pulse" />
           </div>
+          <span 
+            className="text-white text-[10px] font-black uppercase tracking-[0.3em] transform rotate-180" 
+            style={{ writingMode: 'vertical-rl' }}
+          >
+            AI Bubby
+          </span>
         </button>
       </div>
     );
   }
 
   return (
-    <div className="fixed bottom-8 right-8 w-[400px] h-[650px] clay-card bg-zinc-900 border-white/10 shadow-3xl z-[100] flex flex-col overflow-hidden animate-in slide-in-from-bottom-10 fade-in duration-500">
+    <div className="fixed bottom-8 right-8 w-[360px] h-[550px] clay-card bg-zinc-900 border-white/10 shadow-3xl z-[100] flex flex-col overflow-hidden animate-in slide-in-from-bottom-10 fade-in duration-500">
       {/* Header */}
       <div className="flex items-center justify-between p-6 bg-black/40 border-b border-white/5">
         <div className="flex items-center space-x-4">
@@ -140,7 +146,7 @@ export default function AIVoiceAssistant({ onHighlightSection }: AIVoiceAssistan
             <Brain className="w-6 h-6 text-white" />
           </div>
           <div>
-            <h3 className="text-sm font-black text-white uppercase tracking-tighter clay-text-3d">Mission Control AI</h3>
+            <h3 className="text-sm font-black text-white uppercase tracking-tighter clay-text-3d">AI Bubby</h3>
             <div className="flex items-center space-x-2 mt-1">
               <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
               <span className="text-[8px] font-black text-gray-500 uppercase tracking-widest leading-none">Intelligence Online</span>
@@ -163,11 +169,10 @@ export default function AIVoiceAssistant({ onHighlightSection }: AIVoiceAssistan
             className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
           >
             <div
-              className={`max-w-[85%] p-4 rounded-2xl text-[11px] font-bold leading-relaxed shadow-sm ${
-                message.type === 'user'
+              className={`max-w-[85%] p-4 rounded-2xl text-[11px] font-bold leading-relaxed shadow-sm ${message.type === 'user'
                   ? 'clay-card bg-blue-600 text-white border-none shadow-blue-900/20'
                   : 'clay-card bg-black/40 text-gray-300 border-white/5 shadow-inner'
-              }`}
+                }`}
             >
               <p className={message.type === 'assistant' ? 'italic' : ''}>{message.content}</p>
               <div className="flex items-center justify-between mt-3 opacity-30 text-[8px] uppercase tracking-widest font-black">
@@ -206,17 +211,17 @@ export default function AIVoiceAssistant({ onHighlightSection }: AIVoiceAssistan
             <Send className="w-5 h-5" />
           </button>
         </div>
-        
+
         <div className="flex space-x-2 overflow-x-auto pb-2 scrollbar-hide">
-           {['Pilot Intel', 'Sector ROI', 'Alert Status'].map((q, i) => (
-             <button
-               key={i}
-               onClick={() => setInputText(q)}
-               className="whitespace-nowrap px-3 py-1.5 bg-white/5 border border-white/5 rounded-full text-[8px] font-black uppercase tracking-widest text-gray-600 hover:text-blue-500 hover:bg-white/10 transition-all"
-             >
-               {q}
-             </button>
-           ))}
+          {['Pilot Intel', 'Sector ROI', 'Alert Status'].map((q, i) => (
+            <button
+              key={i}
+              onClick={() => setInputText(q)}
+              className="whitespace-nowrap px-3 py-1.5 bg-white/5 border border-white/5 rounded-full text-[8px] font-black uppercase tracking-widest text-gray-600 hover:text-blue-500 hover:bg-white/10 transition-all"
+            >
+              {q}
+            </button>
+          ))}
         </div>
       </div>
     </div>

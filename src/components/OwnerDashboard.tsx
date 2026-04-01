@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Routes, Route, Link, useLocation, Navigate } from 'react-router-dom';
-import { 
-  BarChart3, 
-  Car, 
-  Users, 
-  Wrench, 
-  CreditCard, 
-  Brain, 
-  Settings, 
+import {
+  BarChart3,
+  Car,
+  Users,
+  Wrench,
+  CreditCard,
+  Brain,
+  Settings,
   LogOut,
   Home,
   TrendingUp,
@@ -78,11 +78,10 @@ export default function OwnerDashboard() {
               <Link
                 key={item.name}
                 to={item.href}
-                className={`group flex items-center ${sidebarOpen ? 'px-4 justify-start' : 'justify-center'} py-3 rounded-2xl transition-all ${
-                  item.current || (highlightedSection && item.href.includes(highlightedSection))
-                    ? 'clay-card bg-blue-600 border-none shadow-blue-900/40 text-white'
-                    : 'text-gray-500 hover:text-white hover:bg-white/5'
-                }`}
+                className={`group flex items-center ${sidebarOpen ? 'px-4 justify-start' : 'justify-center'} py-3 rounded-2xl transition-all ${item.current || (highlightedSection && item.href.includes(highlightedSection))
+                  ? 'clay-card bg-blue-600 border-none shadow-blue-900/40 text-white'
+                  : 'text-gray-500 hover:text-white hover:bg-white/5'
+                  }`}
               >
                 <div className={`p-2 rounded-xl transition-colors ${item.current ? 'bg-white/10' : 'bg-transparent group-hover:bg-white/5'}`}>
                   <item.icon className="w-5 h-5" />
@@ -112,13 +111,6 @@ export default function OwnerDashboard() {
                 </div>
               </div>
             )}
-            <button
-              onClick={logout}
-              className="w-full clay-btn bg-red-500/10 hover:bg-red-500/20 text-red-500 flex items-center justify-center p-3 rounded-2xl shadow-none"
-            >
-              <LogOut className="w-5 h-5" />
-              {sidebarOpen && <span className="ml-3 text-[10px] font-black uppercase tracking-[0.2em]">Terminate Session</span>}
-            </button>
           </div>
         </div>
       </div>
@@ -127,7 +119,7 @@ export default function OwnerDashboard() {
       <div className="flex-1 flex flex-col min-w-0 bg-transparent relative">
         {/* Soft Depth Gradients */}
         <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-blue-500/5 blur-[120px] rounded-full pointer-events-none" />
-        
+
         {/* Header */}
         <header className="h-24 px-8 flex items-center justify-between z-10">
           <div className="flex items-center space-x-6">
@@ -140,25 +132,32 @@ export default function OwnerDashboard() {
             <div>
               <h2 className="text-xs font-black uppercase tracking-[0.4em] text-gray-500 italic leading-none mb-2">Fleet Authority Dashboard</h2>
               <div className="flex items-center space-x-3">
-                 <span className="text-2xl font-black text-white tracking-tighter uppercase">Operator Control</span>
-                 <div className="px-3 py-1 bg-green-500/10 border border-green-500/20 rounded-full flex items-center space-x-2">
-                   <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse shadow-[0_0_10px_rgba(34,197,94,0.5)]" />
-                   <span className="text-[8px] font-black text-green-500 uppercase tracking-widest">Active Link</span>
-                 </div>
+                <span className="text-2xl font-black text-white tracking-tighter uppercase">Operator Control</span>
+                <div className="px-3 py-1 bg-green-500/10 border border-green-500/20 rounded-full flex items-center space-x-2">
+                  <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse shadow-[0_0_10px_rgba(34,197,94,0.5)]" />
+                  <span className="text-[8px] font-black text-green-500 uppercase tracking-widest">Active Link</span>
+                </div>
               </div>
             </div>
           </div>
-          
+
           <div className="flex items-center space-x-6">
             <div className="flex flex-col text-right">
               <span className="text-[8px] font-black uppercase tracking-widest text-gray-600">Operations Lead</span>
               <span className="text-sm font-black text-white uppercase tracking-tight">{user?.name}</span>
             </div>
             <div className="w-14 h-14 clay-card bg-zinc-800 border-white/5 flex items-center justify-center group overflow-hidden">
-               <div className="w-full h-full bg-blue-600 flex items-center justify-center transition-transform group-hover:scale-110">
-                 <Users className="w-6 h-6 text-white" />
-               </div>
+              <div className="w-full h-full bg-blue-600 flex items-center justify-center transition-transform group-hover:scale-110">
+                <Users className="w-6 h-6 text-white" />
+              </div>
             </div>
+            <button
+              onClick={logout}
+              className="flex items-center px-4 py-2 clay-card bg-red-500/10 border-red-500/20 hover:bg-red-500/20 text-red-500 transition-all active:scale-95 group shadow-none"
+            >
+              <LogOut className="w-4 h-4 mr-2" />
+              <span className="text-[10px] font-black uppercase tracking-widest">Logout</span>
+            </button>
           </div>
         </header>
 
