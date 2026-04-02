@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { 
-  CreditCard, 
-  Receipt, 
-  Download, 
-  TrendingUp, 
+import {
+  CreditCard,
+  Receipt,
+  Download,
+  TrendingUp,
   Users,
   FileText,
-  DollarSign,
+  IndianRupee,
   Calendar,
   Filter,
   Search,
@@ -178,7 +178,7 @@ export default function BillingFinance() {
         {recentInvoices.map((invoice) => {
           const statusColor = getStatusColor(invoice.status);
           const isOverdue = new Date(invoice.dueDate) < new Date() && invoice.status !== 'paid';
-          
+
           return (
             <div key={invoice.id} className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-6">
               <div className="flex items-center justify-between mb-4">
@@ -187,9 +187,8 @@ export default function BillingFinance() {
                   <p className="text-gray-400">{invoice.customer}</p>
                 </div>
                 <div className="flex items-center space-x-4">
-                  <span className={`px-3 py-1 rounded-full text-sm font-medium bg-${statusColor}-500/30 text-${statusColor}-300 ${
-                    isOverdue ? 'animate-pulse' : ''
-                  }`}>
+                  <span className={`px-3 py-1 rounded-full text-sm font-medium bg-${statusColor}-500/30 text-${statusColor}-300 ${isOverdue ? 'animate-pulse' : ''
+                    }`}>
                     {invoice.status}
                   </span>
                   <div className="text-right">
@@ -289,7 +288,7 @@ export default function BillingFinance() {
                 <>
                   <div className="flex justify-between">
                     <span className="text-gray-400">Base Rate:</span>
-                    <span className="text-white font-semibold">{formatIndianCurrency(model.baseRate)}</span>
+                    <span className="text-white font-semibold">{formatIndianCurrency(model.baseRate || 0)}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-400">Per KM Rate:</span>
@@ -301,12 +300,12 @@ export default function BillingFinance() {
                   </div>
                 </>
               )}
-              
+
               {model.type === 'Package' && (
                 <>
                   <div className="flex justify-between">
                     <span className="text-gray-400">Daily Rate:</span>
-                    <span className="text-white font-semibold">{formatIndianCurrency(model.dailyRate)}</span>
+                    <span className="text-white font-semibold">{formatIndianCurrency(model.dailyRate || 0)}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-400">Per KM Rate:</span>
@@ -314,16 +313,16 @@ export default function BillingFinance() {
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-400">Driver Allowance:</span>
-                    <span className="text-white font-semibold">{formatIndianCurrency(model.driverAllowance)}</span>
+                    <span className="text-white font-semibold">{formatIndianCurrency(model.driverAllowance || 0)}</span>
                   </div>
                 </>
               )}
-              
+
               {model.type === 'Fixed' && (
                 <>
                   <div className="flex justify-between">
                     <span className="text-gray-400">Fixed Rate:</span>
-                    <span className="text-white font-semibold">{formatIndianCurrency(model.fixedRate)}</span>
+                    <span className="text-white font-semibold">{formatIndianCurrency(model.fixedRate || 0)}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-400">Waiting Charges:</span>
@@ -331,7 +330,7 @@ export default function BillingFinance() {
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-400">Cancellation Fee:</span>
-                    <span className="text-white font-semibold">{formatIndianCurrency(model.cancellationFee)}</span>
+                    <span className="text-white font-semibold">{formatIndianCurrency(model.cancellationFee || 0)}</span>
                   </div>
                 </>
               )}
@@ -390,7 +389,7 @@ export default function BillingFinance() {
       <div className="space-y-4">
         {driverPayroll.map((payroll) => {
           const statusColor = getStatusColor(payroll.status);
-          
+
           return (
             <div key={payroll.id} className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-6">
               <div className="flex items-center justify-between mb-4">
@@ -474,7 +473,7 @@ export default function BillingFinance() {
           { name: 'Driver Payroll Summary', description: 'Detailed payroll and commission reports', icon: Users, color: 'purple' },
           { name: 'Invoice Aging Report', description: 'Outstanding payments and collections', icon: Calendar, color: 'yellow' },
           { name: 'Tax Summary', description: 'Consolidated tax calculations and payments', icon: FileText, color: 'orange' },
-          { name: 'Cash Flow Statement', description: 'Monthly cash flow analysis', icon: DollarSign, color: 'red' }
+          { name: 'Cash Flow Statement', description: 'Monthly cash flow analysis', icon: IndianRupee, color: 'red' }
         ].map((report, index) => (
           <div key={index} className={`bg-${report.color}-500/20 border border-${report.color}-500/50 rounded-lg p-6 hover:bg-${report.color}-500/30 transition-colors cursor-pointer`}>
             <div className={`w-12 h-12 bg-${report.color}-500/30 rounded-lg flex items-center justify-center mb-4`}>
@@ -492,16 +491,16 @@ export default function BillingFinance() {
       {/* Integration Section */}
       <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-6">
         <h4 className="text-lg font-black tracking-tight uppercase text-white mb-4">Accounting Software Integration</h4>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {[
             { name: 'Tally Prime', status: 'connected', lastSync: '2025-01-15 10:30 AM' },
             { name: 'Zoho Books', status: 'disconnected', lastSync: 'Never' },
             { name: 'QuickBooks', status: 'pending', lastSync: '2025-01-14 05:45 PM' }
           ].map((integration, index) => {
-            const statusColor = integration.status === 'connected' ? 'green' : 
-                              integration.status === 'pending' ? 'yellow' : 'red';
-            
+            const statusColor = integration.status === 'connected' ? 'green' :
+              integration.status === 'pending' ? 'yellow' : 'red';
+
             return (
               <div key={index} className="clay-card p-4 bg-black/20 border-white/5 shadow-inner">
                 <div className="flex items-center justify-between mb-3">
@@ -511,11 +510,10 @@ export default function BillingFinance() {
                   </span>
                 </div>
                 <p className="text-gray-400 text-sm mb-4">Last sync: {integration.lastSync}</p>
-                <button className={`w-full py-2 rounded-lg font-medium transition-colors ${
-                  integration.status === 'connected' 
+                <button className={`w-full py-2 rounded-lg font-medium transition-colors ${integration.status === 'connected'
                     ? 'bg-blue-600 hover:bg-blue-700 text-white'
                     : 'bg-green-600 hover:bg-green-700 text-white'
-                }`}>
+                  }`}>
                   {integration.status === 'connected' ? 'Sync Now' : 'Connect'}
                 </button>
               </div>
@@ -534,15 +532,14 @@ export default function BillingFinance() {
           <CreditCard className="w-8 h-8 mr-3 text-green-400" />
           Billing & Finance Management
         </h2>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           {financialMetrics.map((metric, index) => (
             <div key={index} className="bg-white/10 rounded-lg p-4 text-center">
               <div className="text-lg font-black tracking-tight uppercase text-white mb-1">{metric.value}</div>
               <div className="text-sm text-gray-300 mb-2">{metric.title}</div>
-              <div className={`text-xs font-medium ${
-                metric.change.startsWith('+') ? 'text-green-400' : 'text-red-400'
-              }`}>
+              <div className={`text-xs font-medium ${metric.change.startsWith('+') ? 'text-green-400' : 'text-red-400'
+                }`}>
                 {metric.change}
               </div>
             </div>
@@ -555,18 +552,17 @@ export default function BillingFinance() {
         <div className="flex space-x-4">
           {[
             { key: 'invoices', label: 'Invoices & GST', icon: Receipt },
-            { key: 'pricing', label: 'Pricing Models', icon: DollarSign },
+            { key: 'pricing', label: 'Pricing Models', icon: IndianRupee },
             { key: 'payroll', label: 'Payroll', icon: Users },
             { key: 'reports', label: 'Reports', icon: FileText }
           ].map((tab) => (
             <button
               key={tab.key}
               onClick={() => setSelectedTab(tab.key as any)}
-              className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-colors ${
-                selectedTab === tab.key
+              className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-colors ${selectedTab === tab.key
                   ? 'bg-blue-600 text-white'
                   : 'bg-white/10 text-gray-300 hover:bg-white/20 hover:text-white'
-              }`}
+                }`}
             >
               <tab.icon className="w-5 h-5" />
               <span>{tab.label}</span>

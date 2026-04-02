@@ -5,7 +5,7 @@ import {
   Clock, 
   AlertTriangle, 
   CheckCircle,
-  DollarSign,
+  IndianRupee,
   User,
   Truck,
   BarChart3,
@@ -15,6 +15,8 @@ import {
 
 export default function Maintenance() {
   const [selectedView, setSelectedView] = useState<'schedule' | 'jobs' | 'analytics'>('schedule');
+  const [activeJobsFilter, setActiveJobsFilter] = useState<'progress' | 'cost' | 'startDate'>('startDate');
+  const [showFilterMenu, setShowFilterMenu] = useState(false);
 
   const formatIndianCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-IN', {
@@ -136,6 +138,13 @@ export default function Maintenance() {
     }
   };
 
+  const filteredJobs = [...activeJobs].sort((a, b) => {
+    if (activeJobsFilter === 'progress') return b.progress - a.progress;
+    if (activeJobsFilter === 'cost') return b.cost - a.cost;
+    if (activeJobsFilter === 'startDate') return new Date(b.startDate).getTime() - new Date(a.startDate).getTime();
+    return 0;
+  });
+
   const ScheduleView = () => (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -179,7 +188,7 @@ export default function Maintenance() {
                   </span>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <DollarSign className="w-4 h-4 text-green-400" />
+                  <IndianRupee className="w-4 h-4 text-green-400" />
                   <span className="text-gray-300">Est. Cost: {formatIndianCurrency(maintenance.estimatedCost)}</span>
                 </div>
               </div>
@@ -199,7 +208,6 @@ export default function Maintenance() {
         })}
       </div>
 
-      {/* Predictive Maintenance Insights */}
       <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-6">
         <h4 className="text-lg font-black tracking-tight uppercase text-white mb-4">Predictive Maintenance Insights</h4>
         
@@ -225,12 +233,44 @@ export default function Maintenance() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h3 className="text-xl font-black tracking-tighter uppercase clay-text-3d text-white">Active Maintenance Jobs</h3>
-        <div className="flex space-x-3">
-          <button className="flex items-center space-x-2 bg-gray-600 hover:bg-gray-700 px-4 py-2 rounded-lg transition-colors">
-            <Filter className="w-4 h-4" />
-            <span>Filter</span>
-          </button>
-          <button className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition-colors">
+        <div className="flex space-x-3 relative">
+          <div className="relative">
+            <button 
+              onClick={() => setShowFilterMenu(!showFilterMenu)}
+              className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-all ${
+                showFilterMenu ? 'bg-blue-600 text-white shadow-lg' : 'bg-gray-600 hover:bg-gray-700 text-gray-200'
+              }`}
+            >
+              <Filter className="w-4 h-4" />
+              <span>{activeJobsFilter === 'startDate' ? 'Started Date' : activeJobsFilter.charAt(0).toUpperCase() + activeJobsFilter.slice(1)}</span>
+            </button>
+
+            {showFilterMenu && (
+              <div className="absolute right-0 mt-2 w-48 clay-card bg-zinc-900 border-white/10 shadow-2xl z-50 p-2 space-y-1">
+                {[
+                  { key: 'progress', label: 'Progress' },
+                  { key: 'cost', label: 'Cost' },
+                  { key: 'startDate', label: 'Started Date' }
+                ].map((option) => (
+                  <button
+                    key={option.key}
+                    onClick={() => {
+                      setActiveJobsFilter(option.key as any);
+                      setShowFilterMenu(false);
+                    }}
+                    className={`w-full text-left px-4 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${
+                      activeJobsFilter === option.key 
+                        ? 'bg-blue-600/20 text-blue-400 border border-blue-500/30' 
+                        : 'text-gray-500 hover:bg-white/5 hover:text-white'
+                    }`}
+                  >
+                    {option.label}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+          <button className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition-colors text-white">
             <Plus className="w-4 h-4" />
             <span>New Job</span>
           </button>
@@ -238,7 +278,7 @@ export default function Maintenance() {
       </div>
 
       <div className="space-y-6">
-        {activeJobs.map((job) => {
+        {filteredJobs.map((job) => {
           const statusColor = getStatusColor(job.status);
           
           return (
@@ -335,7 +375,6 @@ export default function Maintenance() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Vendor Performance */}
         <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-6">
           <h4 className="text-lg font-black tracking-tight uppercase text-white mb-4">Vendor Performance</h4>
           
@@ -373,7 +412,6 @@ export default function Maintenance() {
           </div>
         </div>
 
-        {/* Cost Analysis */}
         <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-6">
           <h4 className="text-lg font-black tracking-tight uppercase text-white mb-4">Cost Breakdown</h4>
           
@@ -404,7 +442,6 @@ export default function Maintenance() {
         </div>
       </div>
 
-      {/* ROI Analysis */}
       <div className="bg-gradient-to-r from-green-500/20 to-blue-500/20 backdrop-blur-sm border border-green-500/50 rounded-lg p-6">
         <h4 className="text-lg font-black tracking-tight uppercase text-white mb-4">Maintenance ROI Analysis</h4>
         
@@ -428,7 +465,6 @@ export default function Maintenance() {
 
   return (
     <div className="space-y-6">
-      {/* Navigation Tabs */}
       <div className="clay-card p-6 bg-zinc-900 border-white/5 shadow-2xl">
         <h2 className="text-2xl font-black tracking-tighter uppercase clay-text-3d text-white mb-6 flex items-center">
           <Wrench className="w-8 h-8 mr-3 text-orange-500" />
@@ -457,7 +493,6 @@ export default function Maintenance() {
         </div>
       </div>
 
-      {/* Content based on selected view */}
       {selectedView === 'schedule' && <ScheduleView />}
       {selectedView === 'jobs' && <JobsView />}
       {selectedView === 'analytics' && <AnalyticsView />}

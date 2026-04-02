@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { 
-  Shield, 
-  AlertTriangle, 
-  Phone, 
-  MapPin, 
+import {
+  Shield,
+  AlertTriangle,
+  Phone,
+  MapPin,
   Clock,
   Car,
   Activity,
@@ -119,14 +119,14 @@ export default function SafetyEmergency() {
   const selectedIncidentData = recentIncidents.find(i => i.id === selectedIncident);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       {/* Header with Emergency Stats */}
       <div className="bg-gradient-to-r from-red-500/20 to-orange-500/20 backdrop-blur-sm border border-red-500/50 rounded-2xl p-6">
         <h2 className="text-2xl font-black tracking-tighter uppercase clay-text-3d text-white mb-6 flex items-center">
           <Shield className="w-8 h-8 mr-3 text-red-400" />
           Safety & Emergency Management
         </h2>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <div className="bg-red-500/30 border border-red-500/50 rounded-lg p-4 text-center">
             <div className="text-2xl font-bold text-red-400">3</div>
@@ -158,7 +158,7 @@ export default function SafetyEmergency() {
           <div className="space-y-4">
             {liveAlerts.map((alert) => {
               const severityColor = getSeverityColor(alert.severity);
-              
+
               return (
                 <div
                   key={alert.id}
@@ -176,7 +176,7 @@ export default function SafetyEmergency() {
                       {alert.severity}
                     </span>
                   </div>
-                  
+
                   <div className="flex items-center justify-between text-sm">
                     <div className="flex items-center space-x-2 text-gray-400">
                       <MapPin className="w-4 h-4" />
@@ -202,180 +202,105 @@ export default function SafetyEmergency() {
           </div>
         </div>
 
-        {/* Emergency Contacts */}
+        {/* Recent Incidents */}
         <div className="clay-card p-6 bg-zinc-900 border-white/5 shadow-2xl">
           <h3 className="text-xl font-black tracking-tighter uppercase clay-text-3d text-white mb-6 flex items-center">
-            <Phone className="w-6 h-6 mr-2 text-green-500" />
-            Emergency Contacts
+            <Activity className="w-6 h-6 mr-2 text-blue-500" />
+            Recent Safety Incidents
           </h3>
 
-          <div className="space-y-4">
-            {emergencyContacts.map((contact, index) => {
-              const getContactColor = (type: string) => {
-                switch (type) {
-                  case 'police': return 'blue';
-                  case 'medical': return 'red';
-                  case 'fire': return 'orange';
-                  case 'internal': return 'purple';
-                  default: return 'gray';
-                }
-              };
-
-              const color = getContactColor(contact.type);
-              
-              return (
-                <div key={index} className="clay-card p-4 bg-black/20 border-white/5 shadow-inner flex items-center justify-between">
-                  <div className="flex items-center space-x-4">
-                    <div className={`w-12 h-12 bg-${color}-500/20 rounded-full flex items-center justify-center`}>
-                      <PhoneCall className={`w-6 h-6 text-${color}-400`} />
-                    </div>
-                    <div>
-                      <h4 className="font-black text-white uppercase tracking-tight">{contact.name}</h4>
-                      <p className="text-gray-400">{contact.number}</p>
-                    </div>
-                  </div>
-                  <button className={`bg-${color}-600 hover:bg-${color}-700 text-white px-4 py-2 rounded-lg transition-colors`}>
-                    Call
-                  </button>
-                </div>
-              );
-            })}
-          </div>
-
-          <div className="mt-6 p-4 bg-red-500/20 border border-red-500/50 rounded-lg">
-            <h4 className="font-semibold text-red-400 mb-2">Emergency Protocol</h4>
-            <ol className="text-sm text-red-200 space-y-1">
-              <li>1. Assess situation severity</li>
-              <li>2. Contact emergency services if needed</li>
-              <li>3. Notify fleet manager</li>
-              <li>4. Dispatch backup support</li>
-              <li>5. Document incident</li>
-            </ol>
-          </div>
-        </div>
-      </div>
-
-      {/* Recent Incidents */}
-      <div className="clay-card p-6 bg-zinc-900 border-white/5 shadow-2xl">
-        <h3 className="text-xl font-black tracking-tighter uppercase clay-text-3d text-white mb-6 flex items-center">
-          <Activity className="w-6 h-6 mr-2 text-blue-500" />
-          Recent Safety Incidents
-        </h3>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Incidents List */}
           <div className="space-y-4">
             {recentIncidents.map((incident) => {
               const severityColor = getSeverityColor(incident.severity);
               const statusColor = getStatusColor(incident.status);
-              
+
               return (
                 <div
                   key={incident.id}
                   onClick={() => setSelectedIncident(incident.id)}
-                  className={`cursor-pointer border rounded-lg p-4 transition-all hover:bg-white/10 ${
-                    selectedIncident === incident.id
+                  className={`cursor-pointer border rounded-2xl p-6 transition-all hover:bg-white/10 ${selectedIncident === incident.id
                       ? 'border-blue-500 bg-blue-500/20'
                       : 'border-white/20 bg-white/5'
-                  }`}
+                    }`}
                 >
-                  <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center justify-between mb-4">
                     <div>
-                      <h4 className="font-black text-white uppercase tracking-tight">{incident.type}</h4>
-                      <p className="text-[10px] uppercase font-black tracking-widest text-gray-500">{incident.id}</p>
+                      <h4 className="font-black text-white uppercase tracking-tight text-sm leading-none">{incident.type}</h4>
+                      <p className="text-xs uppercase font-black tracking-widest text-gray-500 mt-2 font-bold">{incident.id}</p>
                     </div>
                     <div className="flex space-x-2">
-                      <span className={`px-2 py-1 rounded-full text-xs font-medium bg-${severityColor}-500/30 text-${severityColor}-300`}>
+                      <span className={`px-3 py-1 rounded-full text-xs font-black bg-${severityColor}-500/30 text-${severityColor}-300 uppercase tracking-widest`}>
                         {incident.severity}
-                      </span>
-                      <span className={`px-2 py-1 rounded-full text-xs font-medium bg-${statusColor}-500/30 text-${statusColor}-300`}>
-                        {incident.status}
                       </span>
                     </div>
                   </div>
-                  
-                  <div className="grid grid-cols-2 gap-4 text-sm">
-                    <div>
-                      <span className="text-gray-400">Vehicle:</span>
-                      <span className="text-white ml-1">{incident.vehicle}</span>
+
+                  <div className="grid grid-cols-2 gap-4 text-xs font-black uppercase tracking-widest leading-none">
+                    <div className="truncate flex items-center">
+                      <span className="text-gray-600">Veh:</span>
+                      <span className="text-white ml-2">{incident.vehicle}</span>
                     </div>
-                    <div>
-                      <span className="text-gray-400">Driver:</span>
-                      <span className="text-white ml-1">{incident.driver}</span>
-                    </div>
-                    <div>
-                      <span className="text-gray-400">Time:</span>
-                      <span className="text-white ml-1">
-                        {new Date(incident.timestamp).toLocaleDateString('en-IN')}
-                      </span>
-                    </div>
-                    <div>
-                      <span className="text-gray-400">Response:</span>
-                      <span className="text-white ml-1">{incident.responseTime}</span>
+                    <div className="truncate flex items-center">
+                      <span className="text-gray-600">Dr:</span>
+                      <span className="text-white ml-2">{incident.driver}</span>
                     </div>
                   </div>
                 </div>
               );
             })}
           </div>
-
-          {/* Incident Details */}
-          {selectedIncidentData && (
-            <div className="bg-white/5 rounded-lg p-6">
-              <h4 className="text-xl font-black tracking-tighter uppercase clay-text-3d text-white mb-4">Incident Details</h4>
-              
-              <div className="space-y-4">
-                <div>
-                  <span className="text-gray-400 text-sm">Incident ID</span>
-                  <p className="text-white font-semibold">{selectedIncidentData.id}</p>
-                </div>
-                
-                <div>
-                  <span className="text-gray-400 text-sm">Description</span>
-                  <p className="text-white">{selectedIncidentData.description}</p>
-                </div>
-                
-                <div>
-                  <span className="text-gray-400 text-sm">Location</span>
-                  <div className="flex items-center space-x-2 mt-1">
-                    <MapPin className="w-4 h-4 text-blue-400" />
-                    <span className="text-white">{selectedIncidentData.location}</span>
-                  </div>
-                </div>
-                
-                <div>
-                  <span className="text-gray-400 text-sm">Timestamp</span>
-                  <p className="text-white">
-                    {new Date(selectedIncidentData.timestamp).toLocaleString('en-IN')}
-                  </p>
-                </div>
-                
-                <div>
-                  <span className="text-gray-400 text-sm">Actions Taken</span>
-                  <ul className="mt-2 space-y-1">
-                    {selectedIncidentData.actions.map((action, index) => (
-                      <li key={index} className="flex items-center space-x-2">
-                        <CheckCircle className="w-4 h-4 text-green-400" />
-                        <span className="text-white text-sm">{action}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="flex space-x-3 mt-6">
-                  <button className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-medium flex items-center justify-center space-x-2 transition-colors">
-                    <Play className="w-4 h-4" />
-                    <span>View Timeline</span>
-                  </button>
-                  <button className="flex-1 bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-lg font-medium transition-colors">
-                    Export Report
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
         </div>
       </div>
+
+      {/* Incident Details Section (Conditional) */}
+      {selectedIncidentData && (
+        <div className="clay-card p-6 bg-white/5 border-white/10 rounded-lg shadow-2xl animate-in fade-in slide-in-from-top-4">
+          <h4 className="text-xl font-black tracking-tighter uppercase clay-text-3d text-white mb-6">Incident Dossier: {selectedIncidentData.id}</h4>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="space-y-6">
+              <div>
+                <span className="text-[10px] font-black uppercase tracking-widest text-gray-500">Phenomenon Type</span>
+                <p className="text-white font-black text-lg uppercase tracking-tight">{selectedIncidentData.type}</p>
+              </div>
+              <div>
+                <span className="text-[10px] font-black uppercase tracking-widest text-gray-500">Chronological Timestamp</span>
+                <p className="text-white font-bold">{new Date(selectedIncidentData.timestamp).toLocaleString('en-IN')}</p>
+              </div>
+              <div className="flex space-x-3 pt-2">
+                <button className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-black text-[10px] uppercase tracking-widest transition-all">View Analytics</button>
+                <button className="flex-1 bg-white/10 hover:bg-white/20 text-white py-3 rounded-xl font-black text-[10px] uppercase tracking-widest transition-all">Export Report</button>
+              </div>
+            </div>
+
+            <div className="space-y-6">
+              <div>
+                <span className="text-[10px] font-black uppercase tracking-widest text-gray-500">Geospatial Vector</span>
+                <div className="flex items-center space-x-3 mt-2">
+                  <MapPin className="w-5 h-5 text-blue-400" />
+                  <span className="text-white font-bold">{selectedIncidentData.location}</span>
+                </div>
+              </div>
+              <div>
+                <span className="text-[10px] font-black uppercase tracking-widest text-gray-500">Situation Narrative</span>
+                <p className="text-gray-300 text-sm leading-relaxed mt-2 italic">"{selectedIncidentData.description}"</p>
+              </div>
+            </div>
+
+            <div className="bg-black/40 rounded-2xl p-6 border border-white/5 shadow-inner">
+              <span className="text-[10px] font-black uppercase tracking-widest text-gray-500 block mb-4">Countermeasures Deployed</span>
+              <ul className="space-y-3">
+                {selectedIncidentData.actions.map((action, index) => (
+                  <li key={index} className="flex items-center space-x-3">
+                    <CheckCircle className="w-4 h-4 text-green-400" />
+                    <span className="text-white text-xs font-bold uppercase tracking-tight">{action}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Crash Detection Settings */}
       <div className="clay-card p-6 bg-zinc-900 border-white/5 shadow-2xl">
@@ -383,11 +308,11 @@ export default function SafetyEmergency() {
           <Zap className="w-6 h-6 mr-2 text-yellow-500" />
           Crash Detection & SOS Settings
         </h3>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-4">
             <h4 className="font-black text-white uppercase tracking-tight">Detection Sensitivity</h4>
-            
+
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <span className="text-gray-300">Sudden Deceleration Threshold</span>
@@ -403,10 +328,10 @@ export default function SafetyEmergency() {
               </div>
             </div>
           </div>
-          
+
           <div className="space-y-4">
             <h4 className="font-black text-white uppercase tracking-tight">Escalation Rules</h4>
-            
+
             <div className="space-y-2 text-sm">
               <div className="flex items-center space-x-2">
                 <div className="w-6 h-6 bg-blue-500 text-white rounded-full flex items-center justify-center text-xs font-bold">1</div>

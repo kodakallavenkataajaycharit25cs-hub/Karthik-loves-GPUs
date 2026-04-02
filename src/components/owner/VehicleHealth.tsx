@@ -146,8 +146,7 @@ export default function VehicleHealth() {
 
       {/* Selected Vehicle Overview */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 space-y-6">
-          {/* OBD Metrics */}
+        <div className="lg:col-span-2 space-y-4">
           <div className="clay-card p-6 bg-zinc-900 border-white/5 shadow-2xl">
             <h3 className="text-xl font-black tracking-tighter uppercase clay-text-3d text-white mb-6 flex items-center">
               <Car className="w-6 h-6 mr-2 text-blue-500" />
@@ -175,37 +174,7 @@ export default function VehicleHealth() {
               })}
             </div>
 
-            {/* Tyre Pressure */}
-            <div className="clay-card p-4 bg-black/20 border-white/5 shadow-inner">
-              <h4 className="font-black text-white uppercase tracking-tight mb-4 flex items-center">
-                <Settings className="w-5 h-5 mr-2" />
-                Tyre Pressure (PSI)
-              </h4>
-              <div className="grid grid-cols-2 gap-4">
-                {[
-                  { label: 'Front Left', value: selectedVehicleData.tyrePressure.fl, position: 'fl' },
-                  { label: 'Front Right', value: selectedVehicleData.tyrePressure.fr, position: 'fr' },
-                  { label: 'Rear Left', value: selectedVehicleData.tyrePressure.rl, position: 'rl' },
-                  { label: 'Rear Right', value: selectedVehicleData.tyrePressure.rr, position: 'rr' }
-                ].map((tyre, index) => {
-                  const isLow = tyre.value < 30;
-                  
-                  return (
-                    <div
-                      key={index}
-                      className={`p-3 rounded-lg text-center ${
-                        isLow ? 'bg-red-500/20 border border-red-500/50' : 'bg-green-500/20 border border-green-500/50'
-                      }`}
-                    >
-                      <div className={`text-lg font-bold ${isLow ? 'text-red-400' : 'text-green-400'}`}>
-                        {tyre.value} PSI
-                      </div>
-                      <div className="text-[10px] uppercase font-black tracking-widest text-gray-500">{tyre.label}</div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
+
           </div>
 
           {/* Engine Diagnostic Codes */}

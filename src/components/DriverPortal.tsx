@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Routes, Route, Link, useLocation, Navigate } from 'react-router-dom';
-import { 
-  User, 
-  FileText, 
-  TrendingUp, 
-  Award, 
+import {
+  User,
+  FileText,
+  TrendingUp,
+  Award,
   LogOut,
   Car,
   Upload,
@@ -12,15 +12,25 @@ import {
   MapPin,
   Camera,
   Activity,
-  ArrowRight
+  ArrowRight,
+  Settings,
+  Bot
 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import ExpenseClassifier from './ExpenseClassifier';
+import AIVoiceAssistant from './AIVoiceAssistant';
 
 export default function DriverPortal() {
   const { user, logout } = useAuth();
   const location = useLocation();
   const [selectedPeriod, setSelectedPeriod] = useState<'7d' | '1m' | '3m'>('1m');
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [highlightedSection, setHighlightedSection] = useState<string | null>(null);
+
+  const handleSectionHighlight = (section: string) => {
+    setHighlightedSection(section);
+    setTimeout(() => setHighlightedSection(null), 3000);
+  };
 
   const navigation = [
     { name: 'Profile', href: '/driver', icon: User, current: location.pathname === '/driver' },
@@ -107,11 +117,10 @@ export default function DriverPortal() {
               <button
                 key={period.key}
                 onClick={() => setSelectedPeriod(period.key as any)}
-                className={`px-6 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${
-                  selectedPeriod === period.key
-                    ? 'clay-card bg-blue-600 border-none shadow-blue-900/40 text-white'
-                    : 'text-gray-500 hover:text-white'
-                }`}
+                className={`px-6 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${selectedPeriod === period.key
+                  ? 'clay-card bg-blue-600 border-none shadow-blue-900/40 text-white'
+                  : 'text-gray-500 hover:text-white'
+                  }`}
               >
                 {period.label}
               </button>
@@ -165,8 +174,8 @@ export default function DriverPortal() {
                 <span className="text-xs font-black text-green-500">{driverData.safetyScore}/10</span>
               </div>
               <div className="bg-black/40 rounded-full h-3 p-0.5 shadow-inner border border-white/5">
-                <div 
-                  className="bg-green-500 h-full rounded-full shadow-[0_0_10px_rgba(34,197,94,0.3)] transition-all duration-1000" 
+                <div
+                  className="bg-green-500 h-full rounded-full shadow-[0_0_10px_rgba(34,197,94,0.3)] transition-all duration-1000"
                   style={{ width: `${driverData.safetyScore * 10}%` }}
                 />
               </div>
@@ -177,8 +186,8 @@ export default function DriverPortal() {
                 <span className="text-xs font-black text-blue-500">{driverData.fuelEfficiencyScore}/10</span>
               </div>
               <div className="bg-black/40 rounded-full h-3 p-0.5 shadow-inner border border-white/5">
-                <div 
-                  className="bg-blue-500 h-full rounded-full shadow-[0_0_10px_rgba(59,130,246,0.3)] transition-all duration-1000" 
+                <div
+                  className="bg-blue-500 h-full rounded-full shadow-[0_0_10px_rgba(59,130,246,0.3)] transition-all duration-1000"
                   style={{ width: `${driverData.fuelEfficiencyScore * 10}%` }}
                 />
               </div>
@@ -216,23 +225,22 @@ export default function DriverPortal() {
     <div className="space-y-8">
       <div className="clay-card p-8 bg-zinc-900 border-white/5">
         <h2 className="text-2xl font-black text-white mb-10 tracking-tighter uppercase clay-text-3d">Document Archives</h2>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {driverData.documents?.map((doc: any, index: number) => (
             <div key={index} className="clay-card p-6 bg-black/20 border-white/5 shadow-inner">
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-sm font-black text-white uppercase tracking-tight">{doc.name}</h3>
-                <div className={`px-3 py-1 rounded-full text-[8px] font-black uppercase tracking-widest ${
-                  doc.status === 'valid' ? 'bg-green-500/10 text-green-400 border border-green-500/20' :
+                <div className={`px-3 py-1 rounded-full text-[8px] font-black uppercase tracking-widest ${doc.status === 'valid' ? 'bg-green-500/10 text-green-400 border border-green-500/20' :
                   doc.status === 'expiring' ? 'bg-yellow-500/10 text-yellow-400 border border-yellow-500/20' :
-                  'bg-red-500/10 text-red-400 border border-red-500/20'
-                }`}>
+                    'bg-red-500/10 text-red-400 border border-red-500/20'
+                  }`}>
                   {doc.status}
                 </div>
               </div>
               <div className="flex justify-between items-center text-[10px] text-gray-500 font-bold uppercase tracking-widest mb-6">
-                 <span>Expiry Registry</span>
-                 <span className="text-white">{new Date(doc.expiry).toLocaleDateString('en-IN')}</span>
+                <span>Expiry Registry</span>
+                <span className="text-white">{new Date(doc.expiry).toLocaleDateString('en-IN')}</span>
               </div>
               <button className="w-full clay-btn clay-btn-blue h-12 flex items-center justify-center space-x-3 text-[10px]">
                 <Upload className="w-4 h-4" />
@@ -249,7 +257,7 @@ export default function DriverPortal() {
     <div className="space-y-8">
       <div className="clay-card p-8 bg-zinc-900 border-white/5">
         <h2 className="text-2xl font-black text-white mb-10 tracking-tighter uppercase clay-text-3d">Historical Missions</h2>
-        
+
         <div className="space-y-4">
           {[
             { date: '2025-01-15', route: 'Mumbai → Pune', distance: '148 km', duration: '3h 15m', fare: 2840 },
@@ -260,7 +268,7 @@ export default function DriverPortal() {
             <div key={index} className="clay-card p-6 bg-black/20 border-white/5 shadow-inner hover:bg-white/5 transition-all group">
               <div className="flex items-center justify-between">
                 <div>
-                  <h3 className="text-lg font-black text-white tracking-tight uppercase group-hover:text-blue-400 transition-colors">{trip.route}</h3>
+                  <h3 className="text-lg font-black text-white tracking tight uppercase group-hover:text-blue-400 transition-colors">{trip.route}</h3>
                   <div className="flex items-center space-x-4 text-[10px] font-black uppercase tracking-widest text-gray-600 mt-2">
                     <span className="flex items-center"><Calendar className="w-3 h-3 mr-1 text-blue-500/50" /> {trip.date}</span>
                     <span className="flex items-center"><TrendingUp className="w-3 h-3 mr-1 text-blue-500/50" /> {trip.distance}</span>
@@ -296,11 +304,10 @@ export default function DriverPortal() {
               <button
                 key={period.key}
                 onClick={() => setSelectedPeriod(period.key as any)}
-                className={`px-6 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${
-                  selectedPeriod === period.key
-                    ? 'clay-card bg-blue-600 border-none shadow-blue-900/40 text-white'
-                    : 'text-gray-500 hover:text-white'
-                }`}
+                className={`px-6 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${selectedPeriod === period.key
+                  ? 'clay-card bg-blue-600 border-none shadow-blue-900/40 text-white'
+                  : 'text-gray-500 hover:text-white'
+                  }`}
               >
                 {period.label}
               </button>
@@ -311,7 +318,7 @@ export default function DriverPortal() {
 
       <div className="clay-card p-8 bg-zinc-900 border-white/5">
         <h2 className="text-2xl font-black text-white mb-10 tracking-tighter uppercase clay-text-3d">Credit Summary</h2>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
           <div className="clay-card p-6 bg-green-500/10 border-green-500/20 text-center">
             <div className="text-4xl md:text-5xl font-black text-green-400 tracking-tighter mb-1">{formatIndianCurrency(driverData.currentPeriodEarnings)}</div>
@@ -337,13 +344,13 @@ export default function DriverPortal() {
             ].map((payment, index) => (
               <div key={index} className="flex items-center justify-between py-4 border-b border-white/5 last:border-b-0 group">
                 <div className="flex items-center space-x-4">
-                   <div className="w-10 h-10 clay-card bg-zinc-800 border-none flex items-center justify-center">
-                      <TrendingUp className="w-4 h-4 text-green-500" />
-                   </div>
-                   <div>
+                  <div className="w-10 h-10 clay-card bg-zinc-800 border-none flex items-center justify-center">
+                    <TrendingUp className="w-4 h-4 text-green-500" />
+                  </div>
+                  <div>
                     <div className="text-xs font-black text-white uppercase tracking-tight italic">{payment.type}</div>
                     <div className="text-[10px] text-gray-600 font-bold uppercase tracking-widest mt-1">{payment.date}</div>
-                   </div>
+                  </div>
                 </div>
                 <div className="text-xl md:text-2xl font-black text-green-400 tracking-tighter">
                   {formatIndianCurrency(payment.amount)}
@@ -360,7 +367,7 @@ export default function DriverPortal() {
     <div className="space-y-8">
       <div className="clay-card p-8 bg-zinc-900 border-white/5">
         <h2 className="text-2xl font-black text-white mb-10 tracking-tighter uppercase clay-text-3d">Achievement Nodes</h2>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {[
             { name: 'Safe Pilot', description: 'No incidents for 6 months', earned: true, color: 'green' },
@@ -370,16 +377,14 @@ export default function DriverPortal() {
             { name: 'Punctual Opt', description: '95% On-Time Stream', earned: false, color: 'gray' },
             { name: 'Route Expert', description: 'Perfect Geo Navigation', earned: false, color: 'gray' }
           ].map((badge, index) => (
-            <div key={index} className={`clay-card p-8 border-white/5 text-center transition-all ${
-              badge.earned 
-                ? 'bg-blue-600/5 opacity-100' 
-                : 'bg-black/20 opacity-40 grayscale'
-            }`}>
-              <div className={`w-20 h-20 clay-card mx-auto mb-6 flex items-center justify-center transition-transform ${
-                badge.earned
-                  ? `bg-${badge.color}-500 border-none shadow-${badge.color}-900/40 hover:scale-110`
-                  : 'bg-zinc-800 border-white/5'
+            <div key={index} className={`clay-card p-8 border-white/5 text-center transition-all ${badge.earned
+              ? 'bg-blue-600/5 opacity-100'
+              : 'bg-black/20 opacity-40 grayscale'
               }`}>
+              <div className={`w-20 h-20 clay-card mx-auto mb-6 flex items-center justify-center transition-transform ${badge.earned
+                ? `bg-${badge.color}-500 border-none shadow-${badge.color}-900/40 hover:scale-110`
+                : 'bg-zinc-800 border-white/5'
+                }`}>
                 <Award className="w-10 h-10 text-white" />
               </div>
               <h3 className="text-sm font-black text-white mb-3 uppercase tracking-tight">{badge.name}</h3>
@@ -397,60 +402,71 @@ export default function DriverPortal() {
   return (
     <div className="min-h-screen bg-zinc-950 text-white flex font-['Space_Grotesk'] overflow-hidden">
       {/* Sidebar */}
-      <div className="w-64 p-4 flex flex-col z-20">
+      <div className={`${sidebarOpen ? 'w-64' : 'w-20'} transition-all duration-500 p-4 flex flex-col z-20`}>
         <div className="clay-card h-full flex flex-col bg-zinc-900/50 border-white/5 shadow-2xl overflow-hidden">
-          <div className="p-6 mb-4">
+          <div className={`mb-4 flex ${sidebarOpen ? 'p-6' : 'p-4 justify-center'}`}>
             <div className="flex items-center space-x-4">
-              <div className="w-12 h-12 bg-white text-black rounded-[1.2rem] flex items-center justify-center font-black text-xl shadow-xl">
-                S
-              </div>
-              <div className="flex flex-col">
-                <h1 className="text-lg font-black tracking-tighter leading-none clay-text-3d uppercase">SUKRUTHA</h1>
-                <span className="text-[10px] uppercase font-bold text-gray-500 tracking-widest mt-1">Pilot Portal</span>
-              </div>
+              {!sidebarOpen && (
+                <div className="w-10 h-10 clay-card bg-white border-none flex items-center justify-center font-black text-lg text-black shadow-xl rounded-full">
+                  S
+                </div>
+              )}
+              {sidebarOpen && (
+                <div className="flex flex-col">
+                  <h1 className="text-lg font-black tracking-tighter leading-none clay-text-3d uppercase">SUKRUTHA</h1>
+                  <span className="text-[10px] uppercase font-bold text-gray-500 tracking-widest mt-1">Pilot Portal</span>
+                </div>
+              )}
             </div>
           </div>
 
-          <nav className="flex-1 px-4 space-y-2 overflow-y-auto custom-scrollbar">
-            {navigation.map((item) => (
-              <Link
-                key={item.name}
-                to={item.href}
-                className={`group flex items-center px-4 py-3 rounded-2xl transition-all ${
-                  item.current
+          <nav className={`flex-1 ${sidebarOpen ? 'px-4' : 'px-2'} space-y-2 overflow-y-auto custom-scrollbar`}>
+            {navigation.map((item) => {
+              const isExpenses = item.name === 'Expenses';
+              const isHighlighted = highlightedSection && item.href.includes(highlightedSection);
+              
+              if (isExpenses && sidebarOpen) {
+                return (
+                  <Link
+                    key={item.name}
+                    to={item.href}
+                    className="flex items-center p-1 mt-4"
+                  >
+                    <div className={`w-full clay-card ${isHighlighted ? 'bg-orange-500 animate-pulse' : 'bg-blue-600'} border-none shadow-blue-900/40 py-4 px-6 flex items-center space-x-4 group transition-all active:scale-95`}>
+                      <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center">
+                        <item.icon className="w-5 h-5 text-white" />
+                      </div>
+                      <span className="text-sm font-black uppercase tracking-[0.2em] text-white">
+                        {item.name}
+                      </span>
+                    </div>
+                  </Link>
+                );
+              }
+
+              return (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  className={`group flex items-center ${sidebarOpen ? 'px-4 justify-start' : 'justify-center'} py-3 rounded-2xl transition-all ${item.current || isHighlighted
                     ? 'clay-card bg-blue-600 border-none shadow-blue-900/40 text-white'
                     : 'text-gray-500 hover:text-white hover:bg-white/5'
-                }`}
-              >
-                <div className={`p-2 rounded-xl transition-colors ${item.current ? 'bg-white/10' : 'bg-transparent group-hover:bg-white/5'}`}>
-                  <item.icon className="w-5 h-5" />
-                </div>
-                <span className="ml-4 text-xs font-black uppercase tracking-widest leading-none text-white/90">
-                  {item.name}
-                </span>
-              </Link>
-            ))}
+                    } ${isHighlighted ? 'ring-2 ring-orange-500 ring-offset-2 ring-offset-zinc-900 animate-bounce' : ''}`}
+                >
+                  <div className={`p-2 rounded-xl transition-colors ${item.current || isHighlighted ? 'bg-white/10' : 'bg-transparent group-hover:bg-white/5'}`}>
+                    <item.icon className="w-5 h-5" />
+                  </div>
+                  {sidebarOpen && (
+                     <span className="ml-4 text-xs font-black uppercase tracking-widest leading-none text-white/90">
+                      {item.name}
+                    </span>
+                  )}
+                </Link>
+              );
+            })}
           </nav>
 
           <div className="p-4 mt-auto">
-            <div className="clay-card bg-black/20 border-white/5 p-4 mb-4 shadow-inner">
-              <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 rounded-xl bg-blue-500/20 flex items-center justify-center">
-                  <User className="w-5 h-5 text-blue-400" />
-                </div>
-                <div className="min-w-0">
-                  <p className="text-[10px] font-black uppercase tracking-widest text-gray-500 leading-none mb-1">Active Pilot</p>
-                  <p className="font-bold text-sm truncate">{user?.name}</p>
-                </div>
-              </div>
-            </div>
-            <button
-              onClick={logout}
-              className="w-full clay-btn bg-red-500/10 hover:bg-red-500/20 text-red-500 flex items-center justify-center p-3 rounded-2xl shadow-none"
-            >
-              <LogOut className="w-5 h-5" />
-              <span className="ml-3 text-[10px] font-black uppercase tracking-[0.2em]">Exit Terminal</span>
-            </button>
           </div>
         </div>
       </div>
@@ -458,30 +474,45 @@ export default function DriverPortal() {
       {/* Main Content */}
       <div className="flex-1 flex flex-col min-w-0 bg-transparent relative">
         <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-blue-500/5 blur-[120px] rounded-full pointer-events-none" />
-        
+
         {/* Header */}
         <header className="h-24 px-8 flex items-center justify-between z-10">
-          <div>
-            <h2 className="text-xs font-black uppercase tracking-[0.4em] text-gray-500 italic leading-none mb-2">Operations Node Alpha</h2>
-            <div className="flex items-center space-x-3">
-               <span className="text-2xl font-black text-white tracking-tighter uppercase">Pilot Core Interface</span>
-               <div className="px-3 py-1 bg-blue-500/10 border border-blue-500/20 rounded-full flex items-center space-x-2">
-                 <div className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse shadow-[0_0_10px_rgba(59,130,246,0.5)]" />
-                 <span className="text-[8px] font-black text-blue-500 uppercase tracking-widest">Bio-Link Active</span>
-               </div>
+          <div className="flex items-center space-x-6">
+            <button
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+              className="w-12 h-12 clay-card bg-white/5 border-white/10 flex items-center justify-center hover:bg-white/10 transition-all active:scale-90"
+            >
+              <Settings className="w-5 h-5 text-gray-400" />
+            </button>
+            <div>
+              <h2 className="text-xs font-black uppercase tracking-[0.4em] text-gray-500 italic leading-none mb-2">Operations Node Alpha</h2>
+              <div className="flex items-center space-x-3">
+                <span className="text-2xl font-black text-white tracking-tighter uppercase">Pilot Core Interface</span>
+                <div className="px-3 py-1 bg-blue-500/10 border border-blue-500/20 rounded-full flex items-center space-x-2">
+                  <div className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse shadow-[0_0_10px_rgba(59,130,246,0.5)]" />
+                  <span className="text-[8px] font-black text-blue-500 uppercase tracking-widest">Bio-Link Active</span>
+                </div>
+              </div>
             </div>
           </div>
-          
+
           <div className="flex items-center space-x-6">
             <div className="flex flex-col text-right">
               <span className="text-[8px] font-black uppercase tracking-widest text-gray-600 italic">Auth Level 4</span>
               <span className="text-sm font-black text-white uppercase tracking-tight">{user?.name}</span>
             </div>
             <div className="w-14 h-14 clay-card bg-zinc-800 border-white/5 flex items-center justify-center group overflow-hidden">
-               <div className="w-full h-full bg-blue-600 flex items-center justify-center transition-transform group-hover:scale-110">
-                 <User className="w-6 h-6 text-white" />
-               </div>
+              <div className="w-full h-full bg-blue-600 flex items-center justify-center transition-transform group-hover:scale-110">
+                <User className="w-6 h-6 text-white" />
+              </div>
             </div>
+            <button
+              onClick={logout}
+              className="flex items-center px-4 py-2 clay-card bg-red-500/10 border-red-500/20 hover:bg-red-500/20 text-red-500 transition-all active:scale-95 group shadow-none"
+            >
+              <LogOut className="w-4 h-4 mr-2" />
+              <span className="text-[10px] font-black uppercase tracking-widest">Logout</span>
+            </button>
           </div>
         </header>
 
@@ -499,6 +530,9 @@ export default function DriverPortal() {
             </Routes>
           </div>
         </main>
+        
+        {/* AI Voice Assistant */}
+        <AIVoiceAssistant onHighlightSection={handleSectionHighlight} />
       </div>
     </div>
   );

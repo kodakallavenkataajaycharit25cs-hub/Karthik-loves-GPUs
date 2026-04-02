@@ -96,21 +96,6 @@ export default function OwnerDashboard() {
           </nav>
 
           <div className="p-4 mt-auto">
-            {sidebarOpen && (
-              <div className="clay-card bg-black/20 border-white/5 p-4 mb-4 shadow-inner">
-                <div className={`flex items-center ${sidebarOpen ? 'space-x-3' : 'justify-center'}`}>
-                  <div className="w-10 h-10 rounded-xl bg-blue-500/20 flex items-center justify-center">
-                    <Users className="w-5 h-5 text-blue-400" />
-                  </div>
-                  {sidebarOpen && (
-                    <div className="min-w-0">
-                      <p className="text-[10px] font-black uppercase tracking-widest text-gray-500 leading-none mb-1">Authenticated</p>
-                      <p className="font-bold text-sm truncate max-w-[120px]">{user?.name}</p>
-                    </div>
-                  )}
-                </div>
-              </div>
-            )}
           </div>
         </div>
       </div>

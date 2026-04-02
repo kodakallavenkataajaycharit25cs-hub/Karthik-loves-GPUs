@@ -85,12 +85,12 @@ export default function FleetOverview() {
               <div className="w-12 h-12 clay-card bg-blue-600 border-none flex items-center justify-center shadow-blue-900/40 group-hover:rotate-6 transition-transform">
                 <kpi.icon className="w-6 h-6 text-white" />
               </div>
-              <span className={`text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-full ${kpi.change.startsWith('+') ? 'bg-green-500/10 text-green-500 border border-green-500/20' : 'bg-red-500/10 text-red-500 border border-red-500/20'
+              <span className={`text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-full tabular-nums font-['Space_Grotesk'] not-italic ${kpi.change.startsWith('+') ? 'bg-green-500/10 text-green-500 border border-green-500/20' : 'bg-red-500/10 text-red-500 border border-red-500/20'
                 }`}>
                 {kpi.change}
               </span>
             </div>
-            <h3 className="text-xl font-black text-white mb-1 tracking-tighter uppercase">{kpi.value}</h3>
+            <h3 className="text-xl font-black text-white mb-1 tabular-nums font-['Space_Grotesk'] not-italic">{kpi.value}</h3>
             <p className="text-gray-600 text-[10px] font-black uppercase tracking-[0.2em] italic">{kpi.title}</p>
           </div>
         ))}
@@ -110,11 +110,11 @@ export default function FleetOverview() {
               <div key={index} className="clay-card p-5 bg-black/20 border-white/5 shadow-inner hover:bg-white/5 transition-all group">
                 <div className="flex items-center justify-between mb-3">
                   <h4 className="text-sm font-black text-white uppercase tracking-tight group-hover:text-blue-400 transition-colors">{route.route}</h4>
-                  <div className="px-3 py-1 bg-green-500/10 border border-green-500/20 rounded-full text-[10px] font-black text-green-500 uppercase tracking-widest">{route.margin} Yield</div>
+                  <div className="px-3 py-1 bg-green-500/10 border border-green-500/20 rounded-full text-[10px] font-black text-green-500 uppercase tracking-widest font-['Space_Grotesk'] not-italic">{route.margin} Yield</div>
                 </div>
-                <div className="flex items-center justify-between text-xs font-black uppercase tracking-widest text-gray-600">
-                  <span>{route.trips} Missions</span>
-                  <span className="text-[14px] text-white opacity-80">{formatIndianCurrency(route.profit)}</span>
+                <div className="flex items-center justify-between text-xs font-bold uppercase tracking-widest text-gray-600">
+                  <span className="tabular-nums font-['Space_Grotesk'] not-italic">{route.trips} Missions</span>
+                  <span className="text-[14px] font-black text-white opacity-90 tabular-nums font-['Space_Grotesk'] not-italic">{formatIndianCurrency(route.profit)}</span>
                 </div>
               </div>
             ))}
@@ -139,13 +139,13 @@ export default function FleetOverview() {
                     </div>
                     <div>
                       <h4 className="text-sm font-black text-white uppercase tracking-tight group-hover:text-purple-400 transition-colors">{driver.name}</h4>
-                      <div className="flex items-center space-x-4 text-[11px] font-black uppercase tracking-widest text-gray-600 mt-1">
-                        <span>{driver.trips} Missions</span>
-                        <span className="flex items-center text-blue-500"><Activity className="w-3 h-3 mr-1" /> Score: {driver.score}</span>
+                      <div className="flex items-center space-x-4 text-[11px] font-bold uppercase tracking-widest text-gray-600 mt-1">
+                        <span className="tabular-nums font-['Space_Grotesk'] not-italic">{driver.trips} Missions</span>
+                        <span className="flex items-center text-blue-500 tabular-nums font-['Space_Grotesk'] not-italic"><Activity className="w-3 h-3 mr-1" /> Score: {driver.score}</span>
                       </div>
                     </div>
                   </div>
-                  <span className="text-lg font-black text-green-400 tracking-tighter">
+                  <span className="text-lg font-black text-green-400 tabular-nums font-['Space_Grotesk'] not-italic">
                     {formatIndianCurrency(driver.earnings)}
                   </span>
                 </div>
@@ -173,7 +173,7 @@ export default function FleetOverview() {
               { l: 'Critical', v: 1, c: 'red' }
             ].map((stat, i) => (
               <div key={i} className={`clay-card p-4 bg-${stat.c}-500/5 border-${stat.c}-500/20 text-center`}>
-                <div className={`text-2xl font-black text-${stat.c}-500 tracking-tighter`}>{stat.v}</div>
+                <div className={`text-2xl font-black text-${stat.c}-500 tabular-nums font-['Space_Grotesk'] not-italic`}>{stat.v}</div>
                 <div className={`text-[8px] font-black text-${stat.c}-500/60 uppercase tracking-widest mt-1`}>{stat.l}</div>
               </div>
             ))}
@@ -188,7 +188,7 @@ export default function FleetOverview() {
               <div key={i}>
                 <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-widest text-gray-500 mb-2">
                   <span>{m.l}</span>
-                  <span className="text-white">{m.v}</span>
+                  <span className="text-white tabular-nums font-['Space_Grotesk'] not-italic">{m.v}</span>
                 </div>
                 <div className="bg-black/40 rounded-full h-2 p-0.5 shadow-inner border border-white/5">
                   <div className="bg-blue-600 h-full rounded-full transition-all duration-1000 shadow-[0_0_10px_rgba(59,130,246,0.2)]" style={{ width: `${m.p}%` }} />
@@ -217,7 +217,7 @@ export default function FleetOverview() {
                     }`}>
                     {alert.type} protocol
                   </div>
-                  <span className="text-[8px] font-black text-gray-700 uppercase tracking-widest">{alert.time}</span>
+                  <span className="text-[8px] font-bold text-gray-700 uppercase tracking-widest tabular-nums">{alert.time}</span>
                 </div>
                 <p className="text-xs font-bold text-gray-400 group-hover:text-white transition-colors">{alert.message}</p>
               </div>

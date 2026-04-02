@@ -2,19 +2,17 @@ import React, { useState } from 'react';
 import { 
   TrendingUp, 
   DollarSign, 
-  Fuel, 
+  Clock, 
   MapPin, 
-  Clock,
-  User,
-  Wrench,
-  Receipt,
-  BarChart3,
-  Filter
+  ArrowUpRight, 
+  ArrowDownRight,
+  Filter,
+  Download,
+  IndianRupee
 } from 'lucide-react';
 
 export default function TripCosting() {
-  const [selectedTrip, setSelectedTrip] = useState<string | null>(null);
-  const [dateRange, setDateRange] = useState('7d');
+  const [dateRange, setDateRange] = useState('30d');
 
   const formatIndianCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-IN', {
@@ -24,317 +22,186 @@ export default function TripCosting() {
     }).format(amount);
   };
 
-  const trips = [
-    {
-      id: 'TRP-2025-0158',
-      route: 'Mumbai → Pune',
-      vehicle: 'MH 02 AB 1234',
-      driver: 'Suresh Singh',
-      date: '2025-01-15',
-      distance: 148,
-      duration: '3h 15m',
-      customerPaid: 3200,
-      costs: {
-        fuel: 890,
-        driverPay: 480,
-        tolls: 160,
-        parking: 50,
-        cleaning: 25,
-        maintenance: 75,
-        tax: 128
-      },
-      netProfit: 1392,
-      margin: 43.5
+  const tripStats = [
+    { title: 'Avg Cost/km', value: '₹14.2', change: '-2.4%', trend: 'down' },
+    { title: 'Total Revenue', value: formatIndianCurrency(845600), change: '+12.8%', trend: 'up' },
+    { title: 'Operational Cost', value: formatIndianCurrency(312400), change: '+5.2%', trend: 'up' },
+    { title: 'Net Profit', value: formatIndianCurrency(533200), change: '+18.4%', trend: 'up' }
+  ];
+
+  const recentTrips = [
+    { 
+      id: 'TRP-1024', 
+      route: 'Mumbai → Pune', 
+      distance: '148 km', 
+      fuelCost: 2150, 
+      tollCost: 320, 
+      driverPay: 800, 
+      revenue: 5600,
+      status: 'profitable'
     },
-    {
-      id: 'TRP-2025-0157',
-      route: 'Delhi → Agra',
-      vehicle: 'DL 01 CD 5678',
-      driver: 'Ramesh Sharma',
-      date: '2025-01-14',
-      distance: 233,
-      duration: '4h 20m',
-      customerPaid: 4800,
-      costs: {
-        fuel: 1340,
-        driverPay: 700,
-        tolls: 280,
-        parking: 80,
-        cleaning: 30,
-        maintenance: 140,
-        tax: 192
-      },
-      netProfit: 2038,
-      margin: 42.5
+    { 
+      id: 'TRP-1025', 
+      route: 'Pune → Nashik', 
+      distance: '210 km', 
+      fuelCost: 3100, 
+      tollCost: 150, 
+      driverPay: 1200, 
+      revenue: 6800,
+      status: 'profitable'
     },
-    {
-      id: 'TRP-2025-0156',
-      route: 'Bengaluru → Coorg',
-      vehicle: 'KA 05 EF 9012',
-      driver: 'Vikram Patel',
-      date: '2025-01-13',
-      distance: 236,
-      duration: '5h 10m',
-      customerPaid: 5200,
-      costs: {
-        fuel: 1450,
-        driverPay: 780,
-        tolls: 200,
-        parking: 60,
-        cleaning: 40,
-        maintenance: 160,
-        tax: 208
-      },
-      netProfit: 2302,
-      margin: 44.3
+    { 
+      id: 'TRP-1026', 
+      route: 'Mumbai → Lonavala', 
+      distance: '94 km', 
+      fuelCost: 1350, 
+      tollCost: 320, 
+      driverPay: 600, 
+      revenue: 2800,
+      status: 'warning'
     }
   ];
 
-  const costBreakdown = [
-    { category: 'Fuel Cost', amount: 145680, percentage: 42.5, icon: Fuel, color: 'red' },
-    { category: 'Driver Pay', amount: 98450, percentage: 28.7, icon: User, color: 'blue' },
-    { category: 'Tolls & Parking', amount: 34200, percentage: 10.0, icon: MapPin, color: 'yellow' },
-    { category: 'Maintenance', amount: 28500, percentage: 8.3, icon: Wrench, color: 'green' },
-    { category: 'Cleaning & Misc', amount: 18900, percentage: 5.5, icon: Receipt, color: 'purple' },
-    { category: 'Tax & Fees', amount: 17270, percentage: 5.0, icon: Receipt, color: 'orange' }
-  ];
-
-  const profitabilityMetrics = [
-    { title: 'Total Revenue', value: formatIndianCurrency(847600), change: '+15.2%' },
-    { title: 'Total Costs', value: formatIndianCurrency(343000), change: '+8.7%' },
-    { title: 'Net Profit', value: formatIndianCurrency(504600), change: '+22.8%' },
-    { title: 'Avg Margin', value: '42.8%', change: '+3.2%' }
-  ];
-
-  const selectedTripData = trips.find(t => t.id === selectedTrip);
-
   return (
     <div className="space-y-6">
-      {/* Header with Controls */}
-      <div className="clay-card p-6 bg-zinc-900 border-white/5 shadow-2xl">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-2xl font-black tracking-tighter uppercase clay-text-3d text-white">Trip Costing Analysis</h2>
-          <div className="flex items-center space-x-4">
-            <select
-              value={dateRange}
-              onChange={(e) => setDateRange(e.target.value)}
-              className="bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white"
-            >
-              <option value="7d" className="bg-black/20 shadow-inner">Last 7 Days</option>
-              <option value="30d" className="bg-black/20 shadow-inner">Last 30 Days</option>
-              <option value="90d" className="bg-black/20 shadow-inner">Last 3 Months</option>
-            </select>
-            <button className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition-colors">
-              <Filter className="w-4 h-4" />
-              <span>Filter</span>
-            </button>
+      {/* Header Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        {tripStats.map((stat, i) => (
+          <div key={i} className="clay-card p-6 bg-zinc-900 border-white/5 shadow-2xl relative group overflow-hidden">
+            <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+              <TrendingUp className="w-12 h-12" />
+            </div>
+            <div className="text-[10px] uppercase font-black tracking-widest text-gray-500 mb-1">{stat.title}</div>
+            <div className="text-2xl font-black text-white tracking-tighter clay-text-3d">{stat.value}</div>
+            <div className={`mt-2 flex items-center text-xs font-bold ${stat.trend === 'up' ? 'text-green-400' : 'text-red-400'}`}>
+              {stat.trend === 'up' ? <ArrowUpRight className="w-3 h-3 mr-1" /> : <ArrowDownRight className="w-3 h-3 mr-1" />}
+              {stat.change} vs last period
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Main Analysis Section */}
+      <div className="clay-card p-8 bg-zinc-900 border-white/5 shadow-2xl">
+        <div className="flex items-center justify-between mb-8">
+          <div className="flex items-center space-x-3">
+            <TrendingUp className="w-8 h-8 text-blue-500" />
+            <h2 className="text-2xl font-black tracking-tighter uppercase clay-text-3d text-white">Trip Economics Interface</h2>
           </div>
         </div>
 
-        {/* Profitability Metrics */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {profitabilityMetrics.map((metric, index) => (
-            <div key={index} className="clay-card p-4 bg-black/20 border-white/5 shadow-inner text-center">
-              <div className="text-lg font-black tracking-tight uppercase text-white mb-1">{metric.value}</div>
-              <div className="text-[10px] uppercase font-black tracking-widest text-gray-500 mb-2">{metric.title}</div>
-              <div className={`text-xs font-medium ${
-                metric.change.startsWith('+') ? 'text-green-400' : 'text-red-400'
-              }`}>
-                {metric.change}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Detailed Breakdown */}
+          <div className="lg:col-span-2 space-y-6">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              <div className="clay-card p-4 bg-black/20 border-white/5 shadow-inner">
+                <div className="text-[10px] uppercase font-black tracking-widest text-gray-600 mb-2">Fuel Expenditures</div>
+                <div className="text-xl font-bold text-white tracking-tight">{formatIndianCurrency(112400)}</div>
+                <div className="text-[10px] text-blue-400 font-bold mt-1 uppercase tracking-widest leading-none">36% of Net Ops</div>
+              </div>
+              <div className="clay-card p-4 bg-black/20 border-white/5 shadow-inner">
+                <div className="text-[10px] uppercase font-black tracking-widest text-gray-600 mb-2">Toll & Tariffs</div>
+                <div className="text-xl font-bold text-white tracking-tight">{formatIndianCurrency(24500)}</div>
+                <div className="text-[10px] text-purple-400 font-bold mt-1 uppercase tracking-widest leading-none">8% of Net Ops</div>
+              </div>
+              <div className="clay-card p-4 bg-black/20 border-white/5 shadow-inner">
+                <div className="text-[10px] uppercase font-black tracking-widest text-gray-600 mb-2">Labor/Pilot Pay</div>
+                <div className="text-xl font-bold text-white tracking-tight">{formatIndianCurrency(85600)}</div>
+                <div className="text-[10px] text-green-400 font-bold mt-1 uppercase tracking-widest leading-none">27% of Net Ops</div>
+              </div>
+            </div>
+
+            {/* Performance Chart Placeholder */}
+            <div className="h-64 clay-card bg-black/40 border-white/5 shadow-inner flex items-center justify-center relative overflow-hidden">
+               <div className="absolute inset-0 bg-blue-500/5 backdrop-blur-[2px]" />
+               <div className="text-center z-10 p-8">
+                 <div className="inline-block px-4 py-2 bg-blue-600/20 border border-blue-500/30 rounded-xl mb-4">
+                   <TrendingUp className="w-6 h-6 text-blue-400 mx-auto" />
+                 </div>
+                 <div className="text-xs font-black uppercase tracking-[0.4em] text-gray-500 italic">Profitability Stream Visualization Live</div>
+                 <p className="max-w-xs text-[10px] text-gray-600 font-bold uppercase tracking-widest mt-4 mx-auto leading-relaxed">ML-powered route profitability correlation active</p>
+               </div>
+            </div>
+          </div>
+
+          {/* Controls & Mini Stats */}
+          <div className="space-y-6">
+            <div className="clay-card p-6 bg-blue-600 border-none shadow-blue-900/40 relative overflow-hidden">
+               <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-full -mr-8 -mt-8" />
+               <div className="relative z-10">
+                 <h3 className="text-sm font-black uppercase tracking-widest text-white/50 mb-2 italic text-left">Unit Economics Lead</h3>
+                 <div className="text-4xl font-black text-white tracking-tighter">₹28.4</div>
+                 <div className="text-[10px] font-black uppercase tracking-widest text-white/60 mt-1">Net profit per missions kilometer</div>
+               </div>
+            </div>
+
+            <div className="clay-card p-6 border-white/5">
+              <h3 className="text-xs font-black text-white mb-6 uppercase tracking-[0.3em] italic">Temporal Core Filtering</h3>
+              <div className="space-y-3">
+                <select 
+                  value={dateRange}
+                  onChange={(e) => setDateRange(e.target.value)}
+                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-xs font-bold uppercase tracking-widest text-white outline-none focus:border-blue-500/50 transition-all custom-select"
+                >
+                  <option value="7d" className="bg-zinc-900">Last 7 Days</option>
+                  <option value="30d" className="bg-zinc-900">Last 30 Days</option>
+                  <option value="90d" className="bg-zinc-900">Last 3 Months</option>
+                  <option value="1y" className="bg-zinc-900">Last Year</option>
+                </select>
+                <button className="w-full clay-btn py-4 text-[10px]">
+                  <Download className="w-4 h-4 mr-2" />
+                  EXPORT AUDIT LOG
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Recent Trips Analysis */}
+      <div className="clay-card p-8 bg-zinc-900 border-white/5 shadow-2xl">
+        <h2 className="text-xl font-black text-white mb-8 tracking-tighter uppercase clay-text-3d italic text-left">Mission Profitability Audit</h2>
+        
+        <div className="space-y-4">
+          {recentTrips.map((trip) => (
+            <div key={trip.id} className="clay-card p-6 bg-black/20 border-white/5 shadow-inner hover:bg-white/5 transition-all group">
+              <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+                <div className="flex-1">
+                  <div className="flex items-center space-x-3 mb-2">
+                    <span className="text-[10px] font-black uppercase tracking-widest text-blue-500/80">{trip.id}</span>
+                    <h3 className="text-lg font-black text-white tracking-tight uppercase group-hover:text-blue-400 transition-colors italic">{trip.route}</h3>
+                  </div>
+                  <div className="flex items-center space-x-4 text-[10px] font-black uppercase tracking-widest text-gray-600">
+                    <span className="flex items-center"><MapPin className="w-3 h-3 mr-1" /> {trip.distance}</span>
+                    <span className={`px-2 py-0.5 rounded-full ${trip.status === 'profitable' ? 'bg-green-500/10 text-green-400' : 'bg-yellow-500/10 text-yellow-400'} border border-white/5`}>
+                      {trip.status}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+                  <div>
+                    <div className="text-[8px] font-black uppercase tracking-widest text-gray-700 leading-none mb-1">Fuel Core</div>
+                    <div className="text-sm font-bold text-white">{formatIndianCurrency(trip.fuelCost)}</div>
+                  </div>
+                  <div>
+                    <div className="text-[8px] font-black uppercase tracking-widest text-gray-700 leading-none mb-1">Driver Pay</div>
+                    <div className="text-sm font-bold text-white">{formatIndianCurrency(trip.driverPay)}</div>
+                  </div>
+                  <div>
+                    <div className="text-[8px] font-black uppercase tracking-widest text-gray-700 leading-none mb-1">Net Yield</div>
+                    <div className="text-sm font-bold text-green-400">{formatIndianCurrency(trip.revenue - (trip.fuelCost + trip.tollCost + trip.driverPay))}</div>
+                  </div>
+                  <div>
+                    <div className="text-[10px] font-black uppercase tracking-widest text-blue-500/40 leading-none mb-1 text-right">Revenue</div>
+                    <div className="text-xl font-black text-white tracking-tighter text-right leading-none transition-all group-hover:text-blue-400">{formatIndianCurrency(trip.revenue)}</div>
+                  </div>
+                </div>
               </div>
             </div>
           ))}
         </div>
       </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Trip List */}
-        <div className="clay-card p-6 bg-zinc-900 border-white/5 shadow-2xl">
-          <h3 className="text-xl font-black tracking-tighter uppercase clay-text-3d text-white mb-6 flex items-center">
-            <MapPin className="w-6 h-6 mr-2 text-blue-500" />
-            Recent Trips
-          </h3>
-
-          <div className="space-y-4">
-            {trips.map((trip) => (
-              <div
-                key={trip.id}
-                onClick={() => setSelectedTrip(trip.id)}
-                className={`cursor-pointer border rounded-lg p-4 transition-all hover:bg-white/10 ${
-                  selectedTrip === trip.id
-                    ? 'border-blue-500 bg-blue-500/20'
-                    : 'border-white/20 bg-white/5'
-                }`}
-              >
-                <div className="flex items-center justify-between mb-3">
-                  <div>
-                    <h4 className="font-black text-white uppercase tracking-tight">{trip.route}</h4>
-                    <div className="flex items-center space-x-4 text-[10px] uppercase font-black tracking-widest text-gray-500 mt-1">
-                      <span>{trip.vehicle}</span>
-                      <span>{trip.date}</span>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <div className="text-lg font-bold text-green-400">
-                      {formatIndianCurrency(trip.netProfit)}
-                    </div>
-                    <div className="text-[10px] uppercase font-black tracking-widest text-gray-500">{trip.margin}% margin</div>
-                  </div>
-                </div>
-                
-                <div className="grid grid-cols-3 gap-4 text-sm">
-                  <div>
-                    <span className="text-gray-400">Distance:</span>
-                    <span className="text-white ml-1">{trip.distance} km</span>
-                  </div>
-                  <div>
-                    <span className="text-gray-400">Duration:</span>
-                    <span className="text-white ml-1">{trip.duration}</span>
-                  </div>
-                  <div>
-                    <span className="text-gray-400">Revenue:</span>
-                    <span className="text-white ml-1">{formatIndianCurrency(trip.customerPaid)}</span>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Cost Breakdown */}
-        <div className="clay-card p-6 bg-zinc-900 border-white/5 shadow-2xl">
-          <h3 className="text-xl font-black tracking-tighter uppercase clay-text-3d text-white mb-6 flex items-center">
-            <BarChart3 className="w-6 h-6 mr-2 text-green-500" />
-            Cost Breakdown Analysis
-          </h3>
-
-          <div className="space-y-4">
-            {costBreakdown.map((cost, index) => (
-              <div key={index} className="clay-card p-4 bg-black/20 border-white/5 shadow-inner">
-                <div className="flex items-center justify-between mb-2">
-                  <div className="flex items-center space-x-3">
-                    <cost.icon className={`w-5 h-5 text-${cost.color}-400`} />
-                    <span className="text-white font-medium">{cost.category}</span>
-                  </div>
-                  <span className="text-white font-bold">{formatIndianCurrency(cost.amount)}</span>
-                </div>
-                
-                <div className="flex items-center space-x-3">
-                  <div className="flex-1 bg-gray-700 rounded-full h-2">
-                    <div 
-                      className={`bg-${cost.color}-500 h-2 rounded-full`}
-                      style={{ width: `${cost.percentage}%` }}
-                    />
-                  </div>
-                  <span className="text-gray-400 text-sm">{cost.percentage}%</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Selected Trip Details */}
-      {selectedTripData && (
-        <div className="clay-card p-6 bg-zinc-900 border-white/5 shadow-2xl">
-          <h3 className="text-xl font-black tracking-tighter uppercase clay-text-3d text-white mb-6 flex items-center">
-            <Receipt className="w-6 h-6 mr-2 text-blue-500" />
-            Trip Cost Analysis - {selectedTripData.id}
-          </h3>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Trip Info */}
-            <div className="space-y-6">
-              <div className="clay-card p-4 bg-black/20 border-white/5 shadow-inner">
-                <h4 className="font-black text-white uppercase tracking-tight mb-4">Trip Information</h4>
-                <div className="grid grid-cols-2 gap-4 text-sm">
-                  <div>
-                    <span className="text-gray-400">Route:</span>
-                    <p className="text-white font-medium">{selectedTripData.route}</p>
-                  </div>
-                  <div>
-                    <span className="text-gray-400">Vehicle:</span>
-                    <p className="text-white font-medium">{selectedTripData.vehicle}</p>
-                  </div>
-                  <div>
-                    <span className="text-gray-400">Driver:</span>
-                    <p className="text-white font-medium">{selectedTripData.driver}</p>
-                  </div>
-                  <div>
-                    <span className="text-gray-400">Date:</span>
-                    <p className="text-white font-medium">{selectedTripData.date}</p>
-                  </div>
-                  <div>
-                    <span className="text-gray-400">Distance:</span>
-                    <p className="text-white font-medium">{selectedTripData.distance} km</p>
-                  </div>
-                  <div>
-                    <span className="text-gray-400">Duration:</span>
-                    <p className="text-white font-medium">{selectedTripData.duration}</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-gradient-to-r from-green-500/20 to-blue-500/20 rounded-lg p-4">
-                <h4 className="font-black text-white uppercase tracking-tight mb-4">Profitability Summary</h4>
-                <div className="space-y-3">
-                  <div className="flex justify-between">
-                    <span className="text-gray-300">Customer Payment:</span>
-                    <span className="text-white font-bold">{formatIndianCurrency(selectedTripData.customerPaid)}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-300">Total Costs:</span>
-                    <span className="text-red-400 font-bold">
-                      -{formatIndianCurrency(Object.values(selectedTripData.costs).reduce((a, b) => a + b, 0))}
-                    </span>
-                  </div>
-                  <div className="border-t border-white/20 pt-3">
-                    <div className="flex justify-between">
-                      <span className="text-gray-300">Net Profit:</span>
-                      <span className="text-green-400 font-bold text-lg">
-                        {formatIndianCurrency(selectedTripData.netProfit)}
-                      </span>
-                    </div>
-                    <div className="text-right mt-1">
-                      <span className="text-green-400 text-sm font-medium">
-                        {selectedTripData.margin}% margin
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Detailed Cost Breakdown */}
-            <div className="space-y-4">
-              <h4 className="font-black text-white uppercase tracking-tight">Detailed Cost Breakdown</h4>
-              
-              {[
-                { label: 'Fuel Cost', amount: selectedTripData.costs.fuel, icon: Fuel, color: 'red' },
-                { label: 'Driver Payment', amount: selectedTripData.costs.driverPay, icon: User, color: 'blue' },
-                { label: 'Tolls', amount: selectedTripData.costs.tolls, icon: MapPin, color: 'yellow' },
-                { label: 'Parking', amount: selectedTripData.costs.parking, icon: Clock, color: 'purple' },
-                { label: 'Cleaning', amount: selectedTripData.costs.cleaning, icon: Receipt, color: 'green' },
-                { label: 'Maintenance', amount: selectedTripData.costs.maintenance, icon: Wrench, color: 'orange' },
-                { label: 'Tax & Fees', amount: selectedTripData.costs.tax, icon: DollarSign, color: 'gray' }
-              ].map((cost, index) => (
-                <div key={index} className="clay-card p-4 bg-black/20 border-white/5 shadow-inner flex items-center justify-between">
-                  <div className="flex items-center space-x-3">
-                    <cost.icon className={`w-5 h-5 text-${cost.color}-400`} />
-                    <span className="text-white">{cost.label}</span>
-                  </div>
-                  <div className="text-right">
-                    <div className="text-white font-semibold">{formatIndianCurrency(cost.amount)}</div>
-                    <div className="text-gray-400 text-sm">
-                      {((cost.amount / selectedTripData.customerPaid) * 100).toFixed(1)}%
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
