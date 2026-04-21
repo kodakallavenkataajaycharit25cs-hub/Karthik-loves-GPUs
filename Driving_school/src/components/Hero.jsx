@@ -21,9 +21,9 @@ function Hero() {
           </span>
 
           <h1 className="text-5xl md:text-7xl font-moho tracking-tighter text-blue-900 dark:text-blue-100 leading-[0.9] mb-6">
-            Navigate the <br />
-            <span className="text-secondary dark:text-orange-400">Urban Jungle</span> <br />
-            with Clarity.
+            Your Path to <br />
+            <span className="text-secondary dark:text-orange-400">Professional Road Mastery</span> <br />
+            Starts Here.
           </h1>
 
           <p className="text-lg text-on-surface-variant dark:text-slate-400 max-w-lg mb-8 leading-relaxed">

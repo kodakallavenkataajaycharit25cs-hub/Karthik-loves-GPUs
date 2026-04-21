@@ -6,6 +6,7 @@ import Home from './pages/Home'
 import Booking from './pages/Booking'
 import Curriculums from './pages/Curriculums'
 import About from './pages/About'
+import ContactPage from './pages/ContactPage'
 
 function App() {
   const [isDark, setIsDark] = useState(false)
@@ -30,6 +31,7 @@ function App() {
             <Route path="/booking" element={<Booking />} />
             <Route path="/curriculums" element={<Curriculums />} />
             <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<ContactPage />} />
           </Routes>
         </main>
         <Footer />

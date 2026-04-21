@@ -25,9 +25,9 @@ function Header({ toggleDarkMode, isDark }) {
           </Link>
           <Link
             className="font-sans tracking-tight text-[11px] font-medium uppercase text-slate-600 dark:text-slate-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors"
-            to="/"
+            to="/contact"
           >
-            Login
+            Get in touch
           </Link>
         </div>
 
@@ -45,12 +45,12 @@ function Header({ toggleDarkMode, isDark }) {
               <span className="material-symbols-outlined !text-[20px]">dark_mode</span>
             )}
           </button>
-          <a
-            href="/#contact"
+          <Link
+            to="/contact"
             className="hidden lg:block font-sans tracking-tight text-[11px] font-medium uppercase text-slate-600 dark:text-slate-400 hover:text-blue-800 dark:hover:text-blue-300 transition-all"
           >
             Register
-          </a>
+          </Link>
           <Link
             to="/booking"
             className="px-5 py-2 rounded-full text-white font-sans tracking-tight text-[11px] font-medium uppercase clay-btn skeu-btn-primary flex items-center justify-center"
