@@ -102,28 +102,14 @@ function Contact() {
 
           {/* Map Section */}
           <div className="lg:col-span-7 h-[500px] lg:h-auto rounded-[2rem] overflow-hidden shadow-2xl relative border-4 border-white/50 dark:border-slate-800/50">
-            <div className="absolute inset-0 bg-slate-200 dark:bg-slate-900">
-              <img
-                alt="Map of Indiranagar, Bangalore"
-                className="w-full h-full object-cover grayscale opacity-80 dark:invert dark:opacity-90 dark:brightness-150 dark:contrast-125"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzQm8mK6okw9DuBqFQ7w_z-BC7F1qjWwNhbBR6L5ylTuNqEt0CJuPrYnx2jNevsY4IZC3rfnRrz91xonXBGcjQcTLvlsgyV07A_1WxEte2tRu0kKinvWyH1gyOzKmBq4QhEgiaCXuq45Vbm_0XUO3vXlMjVAqryh_07Amx61d_6tsgNhWQ663sv1keN9E4eVj3Q3LNahSrIRUXxV8CFdfUNgDZv79PiXoSYigBgP5OrGqBSNQg6SzpzmzCfxqB40ZZTHMHQflin34"
-              />
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                <div className="relative">
-                  <div className="w-10 h-10 bg-primary dark:bg-blue-500 rounded-full animate-ping absolute opacity-20" />
-                  <div className="w-10 h-10 bg-primary dark:bg-blue-500 rounded-full flex items-center justify-center relative shadow-2xl">
-                    <span className="material-symbols-outlined !text-[20px] text-white">
-                      location_on
-                    </span>
-                  </div>
-                  <div className="absolute top-full mt-3 left-1/2 -translate-x-1/2 glass-panel px-3 py-1.5 rounded-lg whitespace-nowrap shadow-xl border border-white/40 dark:border-white/10">
-                    <span className="text-[10px] font-bold text-blue-900 dark:text-blue-200 uppercase tracking-widest">
-                      Main Hub: Indiranagar
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <iframe
+              src="https://maps.google.com/maps?q=Indiranagar,Bangalore&t=&z=15&ie=UTF8&iwloc=&output=embed"
+              className="w-full h-full border-0 grayscale opacity-90 dark:invert dark:opacity-80 transition-all duration-500 hover:grayscale-0 dark:hover:invert-0"
+              allowFullScreen=""
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Lucid Navigator Indiranagar Hub"
+            ></iframe>
           </div>
         </div>
       </div>

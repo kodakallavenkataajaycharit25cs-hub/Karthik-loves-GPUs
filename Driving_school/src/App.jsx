@@ -8,6 +8,8 @@ import Curriculums from './pages/Curriculums'
 import About from './pages/About'
 import ContactPage from './pages/ContactPage'
 
+import Trainers from './pages/Trainers'
+
 function App() {
   const [isDark, setIsDark] = useState(false)
 
@@ -30,6 +32,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/booking" element={<Booking />} />
             <Route path="/curriculums" element={<Curriculums />} />
+            <Route path="/trainers" element={<Trainers />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<ContactPage />} />
           </Routes>

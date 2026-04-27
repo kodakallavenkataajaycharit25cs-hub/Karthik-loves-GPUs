@@ -63,6 +63,25 @@ function Mission() {
                   Real-time Performance Analytics
                 </span>
               </div>
+
+              {/* Google Reviews */}
+              <div className="pt-8 border-t border-slate-200 dark:border-slate-800/50 mt-8">
+                <div className="flex flex-col gap-2">
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                    Google Reviews
+                  </h3>
+                  <div className="flex items-center gap-4">
+                    <span className="text-3xl font-light text-slate-600 dark:text-slate-400">4.5</span>
+                    <div className="flex text-[#3b49df] dark:text-blue-400">
+                      <span className="material-symbols-outlined !text-[24px]" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
+                      <span className="material-symbols-outlined !text-[24px]" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
+                      <span className="material-symbols-outlined !text-[24px]" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
+                      <span className="material-symbols-outlined !text-[24px]" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
+                      <span className="material-symbols-outlined !text-[24px]">star_half</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

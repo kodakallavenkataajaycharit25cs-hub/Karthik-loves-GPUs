@@ -1,14 +1,5 @@
 const curricula = [
   {
-    name: 'Intro / Demo',
-    price: '₹0',
-    subtitle: 'See how we teach',
-    features: ['1 Theory session', 'Basic vehicle overview', 'Instructor evaluation', 'Free driving guide PDF'],
-    buttonText: 'Try for Free',
-    isPopular: false,
-    color: 'text-on-surface-variant',
-  },
-  {
     name: 'Basic Navigator',
     price: '₹8,500',
     subtitle: 'Perfect for beginners',
@@ -62,7 +53,7 @@ function Curriculums() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {curricula.map((plan) => (
           <div
             key={plan.name}

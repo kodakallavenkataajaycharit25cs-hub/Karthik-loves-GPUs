@@ -25,6 +25,12 @@ function Header({ toggleDarkMode, isDark }) {
           </Link>
           <Link
             className="font-sans tracking-tight text-[11px] font-medium uppercase text-slate-600 dark:text-slate-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors"
+            to="/trainers"
+          >
+            Trainers
+          </Link>
+          <Link
+            className="font-sans tracking-tight text-[11px] font-medium uppercase text-slate-600 dark:text-slate-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors"
             to="/contact"
           >
             Get in touch
@@ -33,6 +39,14 @@ function Header({ toggleDarkMode, isDark }) {
 
         {/* Actions */}
         <div className="flex items-center gap-4">
+          <a
+            href="tel:+919876543210"
+            className="flex items-center gap-2 px-3 py-2 rounded-full hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-all text-slate-600 dark:text-slate-400 group"
+          >
+            <span className="material-symbols-outlined !text-[18px] text-primary dark:text-blue-400">call</span>
+            <span className="text-[11px] font-bold tracking-widest hidden lg:block">+91 98765 43210</span>
+          </a>
+
           <button
             className="p-2 rounded-full hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-all flex items-center justify-center text-slate-600 dark:text-slate-400 neu-icon"
             onClick={toggleDarkMode}
@@ -45,12 +59,7 @@ function Header({ toggleDarkMode, isDark }) {
               <span className="material-symbols-outlined !text-[20px]">dark_mode</span>
             )}
           </button>
-          <Link
-            to="/contact"
-            className="hidden lg:block font-sans tracking-tight text-[11px] font-medium uppercase text-slate-600 dark:text-slate-400 hover:text-blue-800 dark:hover:text-blue-300 transition-all"
-          >
-            Register
-          </Link>
+
           <Link
             to="/booking"
             className="px-5 py-2 rounded-full text-white font-sans tracking-tight text-[11px] font-medium uppercase clay-btn skeu-btn-primary flex items-center justify-center"

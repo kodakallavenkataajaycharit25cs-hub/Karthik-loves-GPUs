@@ -17,7 +17,7 @@ function Footer() {
           {footerLinks.map((link) => (
             <a
               key={link.label}
-              className="font-sans text-[10px] tracking-widest uppercase text-slate-500 hover:text-blue-700 dark:text-slate-400 dark:hover:text-blue-300 hover:underline transition-all"
+              className="font-sans text-[11px] tracking-widest uppercase text-slate-500 hover:text-blue-700 dark:text-slate-400 dark:hover:text-blue-300 hover:underline transition-all"
               href={link.href}
             >
               {link.label}
@@ -25,7 +25,7 @@ function Footer() {
           ))}
         </div>
 
-        <p className="font-sans text-[10px] tracking-widest uppercase text-slate-500 dark:text-slate-400">
+        <p className="font-sans text-[11px] tracking-widest uppercase text-slate-500 dark:text-slate-400">
           © 2024 Lucid Navigator Driving Academy. All rights reserved.
         </p>
       </div>
