@@ -1,14 +1,14 @@
 const footerLinks = [
   { label: "Privacy Policy", href: "#" },
   { label: "Terms of Service", href: "#" },
-  { label: "Driving Laws", href: "#" },
-  { label: "Safety Protocol", href: "#" },
+  { label: "Driving Laws", href: "https://ramanagarapolice.karnataka.gov.in/125/traffic-rules-and-regulations/en" },
+  { label: "Safety Protocol", href: "https://transportinfo.in/simba/gos/Licence/driving_school_guidelines.pdf" },
 ]
 
 function Footer() {
   return (
     <footer className="w-full border-t border-white/20 dark:border-slate-800/30 bg-slate-50/80 dark:bg-slate-950/80 backdrop-blur-md">
-      <div className="flex flex-col md:flex-row justify-between items-center px-12 py-6 gap-4">
+      <div className="flex flex-col md:flex-row justify-between items-center px-12 py-5 gap-4">
         <div className="text-base font-moho text-blue-900 dark:text-white">
           Lucid Navigator
         </div>
@@ -19,6 +19,8 @@ function Footer() {
               key={link.label}
               className="font-sans text-[11px] tracking-widest uppercase text-slate-500 hover:text-blue-700 dark:text-slate-400 dark:hover:text-blue-300 hover:underline transition-all"
               href={link.href}
+              target={link.href.startsWith('http') ? '_blank' : undefined}
+              rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
             >
               {link.label}
             </a>

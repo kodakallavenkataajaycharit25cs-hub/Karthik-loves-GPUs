@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 function TimePicker({ value, onChange }) {
   const [isOpen, setIsOpen] = useState(false)
@@ -131,6 +132,7 @@ function TimePicker({ value, onChange }) {
 }
 
 function Booking() {
+  const navigate = useNavigate()
   const [bookingData, setBookingData] = useState({
     name: '',
     email: '',
@@ -146,8 +148,13 @@ function Booking() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    alert(`Slot booked successfully for ${bookingData.name} at ${bookingData.time}!`)
-    console.log('Booking submitted:', bookingData)
+    // Redirect to landing page with success state
+    navigate('/', { 
+      state: { 
+        bookingSuccess: true, 
+        bookingTime: bookingData.time 
+      } 
+    })
   }
 
   return (

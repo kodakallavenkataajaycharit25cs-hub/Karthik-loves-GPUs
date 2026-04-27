@@ -1,6 +1,6 @@
 function Mission() {
   return (
-    <section className="py-24 hero-gradient">
+    <section className="pt-[92px] pb-24 hero-gradient">
       <div className="container mx-auto px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           {/* Image Side */}

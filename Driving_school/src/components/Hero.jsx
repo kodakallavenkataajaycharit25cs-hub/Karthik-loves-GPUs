@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 
 function Hero() {
   return (
-    <section className="relative min-h-[500px] flex items-start overflow-hidden">
+    <section className="relative min-h-[600px] flex items-center overflow-hidden py-24">
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <img
@@ -10,7 +10,7 @@ function Hero() {
           className="w-full h-full object-cover"
           src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwinAbvXn9R02dbgsqpnG6CyNK_k8W-MUMlwohe-rMwpkHZU0PYHJT-CpCJgqmqN9DTtaynqFLdgK19PwzotmWr7hvZ2msTFrRuoW9FcBEU2BggMoao60B7xcZ118V9YW5aLOoQ3RyWF2knTS0wEL_mk3Mm8rrqXpmNGnqfgzqskJdMehyLJEfGQN-H_0f_uyGhm8CcY1iVvOmD3gASXuzUM2e1vGQvqmM7unGrSkYAUi-lRrMjAOPzO9abLgxP7MA-knT6aUbMmQ"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/60 to-transparent dark:from-slate-950 dark:via-slate-950/70 dark:to-transparent" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,var(--tw-gradient-from)_0%,var(--tw-gradient-from)_20%,rgba(250,248,255,0.9)_35%,rgba(250,248,255,0.6)_55%,rgba(250,248,255,0)_100%)] from-background dark:bg-[linear-gradient(to_right,var(--tw-gradient-from)_0%,var(--tw-gradient-from)_25%,rgba(2,6,23,0.85)_45%,rgba(2,6,23,0)_100%)] dark:from-slate-950" />
       </div>
 
       {/* Content */}
