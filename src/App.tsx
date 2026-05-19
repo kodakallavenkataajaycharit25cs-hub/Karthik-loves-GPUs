@@ -4,6 +4,7 @@ import LandingPage from './components/LandingPage';
 import BookingPage from './components/BookingPage';
 import OwnerDashboard from './components/OwnerDashboard';
 import DriverPortal from './components/DriverPortal';
+import SuperAdminPortal from './components/admin/SuperAdminPortal';
 import LoginModal from './components/LoginModal';
 import CustomCursor from './components/CustomCursor';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
@@ -29,6 +30,12 @@ function AppContent() {
             path="/driver/*" 
             element={
               user?.role === 'driver' ? <DriverPortal /> : <Navigate to="/" replace />
+            } 
+          />
+          <Route 
+            path="/super-admin-dashboard/*" 
+            element={
+              user?.role === 'admin' ? <SuperAdminPortal /> : <Navigate to="/" replace />
             } 
           />
           <Route path="*" element={<Navigate to="/" replace />} />

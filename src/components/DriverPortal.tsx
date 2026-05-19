@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, Link, useLocation, Navigate } from 'react-router-dom';
+import { Routes, Route, Link, useLocation, Navigate, useNavigate } from 'react-router-dom';
 import {
   User,
   FileText,
@@ -17,7 +17,8 @@ import {
   Bot,
   Zap,
   Thermometer,
-  Gauge
+  Gauge,
+  ShieldAlert
 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import ExpenseClassifier from './ExpenseClassifier';
@@ -27,8 +28,9 @@ import BorderGlow from './BorderGlow';
 import { fetchRPM, fetchSpeed, fetchFuelLevel, fetchDiagnostics, OBDData } from '../services/obdApi';
 
 export default function DriverPortal() {
-  const { user, logout } = useAuth();
+  const { user, logout, loginAs } = useAuth();
   const location = useLocation();
+  const navigate = useNavigate();
   const [selectedPeriod, setSelectedPeriod] = useState<'7d' | '1m' | '3m' | '1y'>('1m');
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [highlightedSection, setHighlightedSection] = useState<string | null>(null);
@@ -603,7 +605,31 @@ export default function DriverPortal() {
   );
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-white flex font-['Space_Grotesk'] overflow-hidden">
+    <div className="min-h-screen bg-zinc-950 text-white flex flex-col font-['Space_Grotesk'] overflow-hidden">
+      {sessionStorage.getItem('admin_impersonating') === 'true' && (
+        <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 text-xs flex justify-between items-center z-[999] relative border-b border-white/10 font-bold shrink-0">
+          <div className="flex items-center space-x-2">
+            <ShieldAlert className="w-4 h-4 text-white animate-pulse" />
+            <span>IMPERSONATION MODE ACTIVE: Logged in as <span className="underline">{user?.name}</span> ({user?.email})</span>
+          </div>
+          <button 
+            onClick={() => {
+              sessionStorage.removeItem('admin_impersonating');
+              loginAs({
+                id: '4',
+                email: 'admin@test.com',
+                role: 'admin',
+                name: 'Super Admin'
+              });
+              navigate('/super-admin-dashboard');
+            }}
+            className="px-3 py-1 bg-white/20 hover:bg-white/30 border border-white/30 rounded-lg transition-all text-[10px] uppercase tracking-widest active:scale-95 shrink-0"
+          >
+            Exit & Return to Super Admin
+          </button>
+        </div>
+      )}
+      <div className="flex-1 flex overflow-hidden">
       {/* Sidebar */}
       <div className={`${sidebarOpen ? 'w-64' : 'w-20'} transition-all duration-500 p-4 flex flex-col z-20`}>
         <div className="h-full flex flex-col bg-[#120F17]/50 border-white/5 shadow-2xl overflow-hidden rounded-2xl">
@@ -684,12 +710,6 @@ export default function DriverPortal() {
         {/* Header */}
         <header className="h-24 px-8 flex items-center justify-between z-10">
           <div className="flex items-center space-x-6">
-            <button
-              onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="w-12 h-12 bg-white/5 border-white/10 flex items-center justify-center hover:bg-white/10 transition-all active:scale-90 rounded-2xl"
-            >
-              <Settings className="w-5 h-5 text-gray-400" />
-            </button>
             <div>
               <h2 className="text-xs font-black uppercase tracking-[0.4em] text-gray-500 italic leading-none mb-2">Operations Node Alpha</h2>
               <div className="flex items-center space-x-3">
@@ -743,5 +763,6 @@ export default function DriverPortal() {
         <AIVoiceAssistant onHighlightSection={handleSectionHighlight} />
       </div>
     </div>
+  </div>
   );
 }

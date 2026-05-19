@@ -3,7 +3,7 @@ import React, { createContext, useContext, useState, ReactNode } from 'react';
 interface User {
   id: string;
   email: string;
-  role: 'owner' | 'driver';
+  role: 'owner' | 'driver' | 'admin';
   name: string;
 }
 
@@ -11,6 +11,7 @@ interface AuthContextType {
   user: User | null;
   login: (email: string, password: string) => Promise<boolean>;
   logout: () => void;
+  loginAs: (user: User) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -34,6 +35,12 @@ const DEMO_USERS: User[] = [
     email: 'driver2@demo.com',
     role: 'driver',
     name: 'Ramesh Sharma'
+  },
+  {
+    id: '4',
+    email: 'admin@test.com',
+    role: 'admin',
+    name: 'Super Admin'
   }
 ];
 
@@ -44,7 +51,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     // Demo authentication
     if ((email === 'owner@demo.com' && password === 'owner123') ||
         (email === 'driver1@demo.com' && password === 'driver123') ||
-        (email === 'driver2@demo.com' && password === 'driver123')) {
+        (email === 'driver2@demo.com' && password === 'driver123') ||
+        (email === 'admin@test.com' && password === 'Admin@123')) {
       
       const foundUser = DEMO_USERS.find(u => u.email === email);
       if (foundUser) {
@@ -59,8 +67,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(null);
   };
 
+  const loginAs = (targetUser: User) => {
+    setUser(targetUser);
+  };
+
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, loginAs }}>
       {children}
     </AuthContext.Provider>
   );

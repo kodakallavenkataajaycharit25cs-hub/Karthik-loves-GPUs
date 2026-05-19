@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Routes, Route, Link, useLocation, Navigate } from 'react-router-dom';
+import { Routes, Route, Link, useLocation, Navigate, useNavigate } from 'react-router-dom';
 import {
   BarChart3,
   Car,
@@ -12,6 +12,7 @@ import {
   Home,
   TrendingUp,
   Shield,
+  ShieldAlert,
   MapPin,
   Camera,
   Bot,
@@ -32,8 +33,9 @@ import SpotBooking from './SpotBooking';
 import BorderGlow from './BorderGlow';
 
 export default function OwnerDashboard() {
-  const { user, logout } = useAuth();
+  const { user, logout, loginAs } = useAuth();
   const location = useLocation();
+  const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [highlightedSection, setHighlightedSection] = useState<string | null>(null);
 
@@ -56,7 +58,31 @@ export default function OwnerDashboard() {
   ];
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-white flex font-['Space_Grotesk'] overflow-hidden">
+    <div className="min-h-screen bg-zinc-950 text-white flex flex-col font-['Space_Grotesk'] overflow-hidden">
+      {sessionStorage.getItem('admin_impersonating') === 'true' && (
+        <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 text-xs flex justify-between items-center z-[999] relative border-b border-white/10 font-bold shrink-0">
+          <div className="flex items-center space-x-2">
+            <ShieldAlert className="w-4 h-4 text-white animate-pulse" />
+            <span>IMPERSONATION MODE ACTIVE: Logged in as <span className="underline">{user?.name}</span> ({user?.email})</span>
+          </div>
+          <button 
+            onClick={() => {
+              sessionStorage.removeItem('admin_impersonating');
+              loginAs({
+                id: '4',
+                email: 'admin@test.com',
+                role: 'admin',
+                name: 'Super Admin'
+              });
+              navigate('/super-admin-dashboard');
+            }}
+            className="px-3 py-1 bg-white/20 hover:bg-white/30 border border-white/30 rounded-lg transition-all text-[10px] uppercase tracking-widest active:scale-95 shrink-0"
+          >
+            Exit & Return to Super Admin
+          </button>
+        </div>
+      )}
+      <div className="flex-1 flex overflow-hidden">
       {/* Sidebar */}
       <div className={`${sidebarOpen ? 'w-64' : 'w-20'} transition-all duration-500 p-4 flex flex-col z-20`}>
         <div className="h-full flex flex-col bg-[#120F17]/50 border-white/5 shadow-2xl overflow-hidden rounded-2xl">
@@ -168,5 +194,6 @@ export default function OwnerDashboard() {
         <AIVoiceAssistant onHighlightSection={handleSectionHighlight} />
       </div>
     </div>
+  </div>
   );
 }

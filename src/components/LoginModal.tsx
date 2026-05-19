@@ -18,7 +18,8 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
 
   const demoCredentials = [
     { email: 'owner@demo.com', password: 'owner123', role: 'Fleet Owner' },
-    { email: 'driver1@demo.com', password: 'driver123', role: 'Unit Pilot' }
+    { email: 'driver1@demo.com', password: 'driver123', role: 'Unit Pilot' },
+    { email: 'admin@test.com', password: 'Admin@123', role: 'Super Admin' }
   ];
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -32,6 +33,8 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
         onClose();
         if (email === 'owner@demo.com') {
           navigate('/owner');
+        } else if (email === 'admin@test.com') {
+          navigate('/super-admin-dashboard');
         } else if (email.includes('driver')) {
           navigate('/driver');
         }
@@ -173,7 +176,7 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
                 <span className="text-[8px] font-black text-gray-700 uppercase tracking-[0.3em] italic">Authority Entry Points</span>
                 <div className="h-[1px] flex-1 bg-white/5" />
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-3 gap-4">
                 {demoCredentials.map((cred, index) => (
                   <button
                     key={index}

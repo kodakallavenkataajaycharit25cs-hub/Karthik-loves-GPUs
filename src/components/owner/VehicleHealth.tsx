@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  Car, 
-  Thermometer, 
-  Fuel, 
-  Gauge, 
-  AlertTriangle, 
+import {
+  Car,
+  Thermometer,
+  Fuel,
+  Gauge,
+  AlertTriangle,
   CheckCircle,
   XCircle,
   Settings,
@@ -34,7 +34,7 @@ export default function VehicleHealth() {
             rpm: rpmData.rpm,
             speed: speedData.speed,
             fuel_level: fuelData.fuel_level,
-            diagnostics: diagData
+            diagnostics: diagData.diagnostics
           });
         } catch (error) {
           console.error('Failed to update telemetry:', error);
@@ -168,8 +168,8 @@ export default function VehicleHealth() {
                 key={vehicle.id}
                 onClick={() => setSelectedVehicle(vehicle.id)}
                 className={`flex items-center space-x-3 p-3 rounded-lg border transition-all ${selectedVehicle === vehicle.id
-                    ? 'border-blue-500 bg-blue-500/20'
-                    : 'border-white/20 bg-white/5 hover:bg-white/10'
+                  ? 'border-blue-500 bg-blue-500/20'
+                  : 'border-white/20 bg-white/5 hover:bg-white/10'
                   }`}
               >
                 <StatusIcon className={`w-5 h-5 text-${statusColor}-400`} />
@@ -264,8 +264,8 @@ export default function VehicleHealth() {
                 <div key={index} className="clay-card-hover p-4 bg-black/20 border-white/5 shadow-inner border-l-4 border-l-orange-500 group transition-all rounded-2xl">
                   <div className="flex items-center justify-between mb-2">
                     <span className={`px-2 py-1 rounded-full text-xs font-medium transition-colors ${violation.severity === 'high' ? 'bg-red-500/20 text-red-400 group-hover:bg-red-500/30' :
-                        violation.severity === 'medium' ? 'bg-yellow-500/20 text-yellow-400 group-hover:bg-yellow-500/30' :
-                          'bg-blue-500/20 text-blue-400 group-hover:bg-blue-500/30'
+                      violation.severity === 'medium' ? 'bg-yellow-500/20 text-yellow-400 group-hover:bg-yellow-500/30' :
+                        'bg-blue-500/20 text-blue-400 group-hover:bg-blue-500/30'
                       }`}>
                       {violation.type}
                     </span>
