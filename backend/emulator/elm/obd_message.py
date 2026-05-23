@@ -1757,6 +1757,12 @@ ObdMessage = {
             # 92 minute
             # 93 minute
         },
+        'FUEL_LEVEL': {
+            'Request': '^012F' + ELM_FOOTER,
+            'Descr': 'Fuel Tank Level Input',
+            'Header': ECU_ADDR_E,
+            'Response': HD(ECU_R_ADDR_E) + SZ('03') + DT('41 2F A0')
+        },
         'FUEL_TYPE': {
             'Request': '^0151' + ELM_FOOTER,
             'Descr': 'Fuel Type',

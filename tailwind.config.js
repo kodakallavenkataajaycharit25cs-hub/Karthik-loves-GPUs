@@ -22,8 +22,9 @@ export default {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
       },
       fontFamily: {
-        sans: ['"Space Grotesk"', 'sans-serif'],
+        sans: ['"Inter"', 'sans-serif'],
         display: ['Syne', 'sans-serif'],
+        'Space_Grotesk': ['"Inter"', 'sans-serif'],
       },
     },
   },
